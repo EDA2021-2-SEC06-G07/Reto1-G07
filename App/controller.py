@@ -25,14 +25,23 @@ import model
 import csv
 
 
+
+
+
+
 """
 El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
+<<<<<<< HEAD
 def initCatalog():
     catalog = model.newCatalog()
     return catalog
+=======
+def loadCatalog():
+    pass
+>>>>>>> 4a0f00a463b3416f8f6748adcae2176f97835577
 
 # Funciones para la carga de datos
 def loadData(catalog):
