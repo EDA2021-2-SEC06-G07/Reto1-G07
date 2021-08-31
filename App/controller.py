@@ -38,6 +38,7 @@ def initCatalog():
     catalog = model.newCatalog()
     return catalog
 
+
 # Funciones para la carga de datos
 def loadData(catalog):
     loadConstituentID(catalog)
@@ -55,24 +56,30 @@ def loadConstituentID(catalog):
     for ConstituentID in input_file:
         model.addBook(catalog, ConstituentID)
 
+
 def loadDisplayName(catalog):
     DisplayNamefile = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(DisplayNamefile, encoding='utf-8'))
     i = 0
     for DisplayName in input_file:
         model.addBook(catalog, DisplayName)
+
+
 def loadArtistBio(catalog):
     ArtistBiofile = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(ArtistBiofile, encoding='utf-8'))
     i = 0
     for ArtistBio in input_file:
         model.addBook(catalog, ArtistBio)
+
+
 def loadNationality(catalog):
     Nationalityfile = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(Nationalityfile, encoding='utf-8'))
     i = 0
     for Nationality in input_file:
         model.addBook(catalog, Nationality)
+
 
 def loadGender(catalog):
     Genderfile = cf.data_dir + 'Artist-utf8-small.csv'
@@ -81,6 +88,7 @@ def loadGender(catalog):
     for Gender in input_file:
         model.addBook(catalog, Gender)
 
+
 def loadBeginDate(catalog):
     BeginDatefile = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(BeginDatefile, encoding='utf-8'))
@@ -88,18 +96,23 @@ def loadBeginDate(catalog):
     for BeginDate in input_file:
         model.addBook(catalog, BeginDate)
 
+
 def loadEndDate(catalog):
     EndDatefile = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(EndDatefile, encoding='utf-8'))
     i = 0
     for EndDate in input_file:
         model.addBook(catalog, EndDate)
+
+
 def loadWikiQID(catalog):
     WikiQID = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(WikiQID, encoding='utf-8'))
     i = 0
     for EndDate in input_file:
         model.addBook(catalog, WikiQID)
+
+        
 def loadULAN(catalog):
     ULAN = cf.data_dir + 'Artist-utf8-small.csv'
     input_file = csv.DictReader(open(ULAN, encoding='utf-8'))
