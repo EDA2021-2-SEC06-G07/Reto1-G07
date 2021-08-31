@@ -36,9 +36,33 @@ los mismos.
 """
 
 # Construccion de modelos
+def newCatalog():
+    catalog = {'ConstituentID': None,
+               'DisplayName': None,
+               'ArtistBio': None,
+               'Nationality': None,
+               'Gender': None,
+               'BeginDate' : None,
+               'EndDate': None,
+               'Wiki QID' : None,
+               'ULAN': None}
 
+    catalog['ConstituentID'] = lt.newList()
+    catalog['DisplayName'] = lt.newList()
+    catalog['ArtistBio'] = lt.newList()
+    catalog['Nationality'] = lt.newList()
+    catalog['Gender'] = lt.newList()
+    catalog['BeginDate'] = lt.newList()
+    catalog['EndDate'] = lt.newList()
+    catalog['Wiki QID'] = lt.newList()
+    catalog['ULAN'] = lt.newList()
+    
+    return catalog
 # Funciones para agregar informacion al catalogo
-
+def addConstituentID(catalog, book):
+    # Se adiciona el libro a la lista de libros
+    lt.addLast(catalog['ConstituentID'], book)
+    
 # Funciones para creacion de datos
 
 # Funciones de consulta
