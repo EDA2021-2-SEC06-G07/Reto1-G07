@@ -41,7 +41,7 @@ def printMenu():
     print(menu)
 
 def cargarCAtalogo():
-    pass
+    return controller.loadCatalog()
 
 
 catalog = None
