@@ -58,9 +58,8 @@ def newCatalog():
     catalog['ULAN'] = lt.newList()
     
     return catalog
-# Funciones para agregar informacion al catalogo
+    
 def addConstituentID(catalog, book):
-    # Se adiciona el libro a la lista de libros
     lt.addLast(catalog['ConstituentID'], book)
     
 # Funciones para creacion de datos

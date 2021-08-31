@@ -34,14 +34,11 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
-<<<<<<< HEAD
 def initCatalog():
     catalog = model.newCatalog()
     return catalog
-=======
 def loadCatalog():
     pass
->>>>>>> 4a0f00a463b3416f8f6748adcae2176f97835577
 
 # Funciones para la carga de datos
 def loadData(catalog):
@@ -105,11 +102,11 @@ def loadWikiQID(catalog):
     for EndDate in input_file:
         model.addBook(catalog, WikiQID)
 def loadULAN(catalog):
-    ULAN = cf.data_dir + 'Artist-utf8-small.csv'
-    input_file = csv.DictReader(open(ULAN, encoding='utf-8'))
+    Ulan = cf.data_dir + 'Artist-utf8-small.csv'
+    input_file = csv.DictReader(open(Ulan, encoding='utf-8'))
     i = 0
-    for ULAN in input_file:
-        model.addBook(catalog, ULAN)
+    for Ulan in input_file:
+        model.addBook(catalog, Ulan)
     
 # Funciones de ordenamiento
 
