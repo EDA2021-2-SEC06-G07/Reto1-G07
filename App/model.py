@@ -35,26 +35,31 @@ assert cf
 Se define la estructura de un catálogo de videos. El catálogo tendrá dos listas, una para los videos, otra para las categorias de
 los mismos.
 """
+#Constantes
+#-------------
+#Dicionario
+ARTISTAS = 'Artistas'
+ARTWORKS = 'Artworks'
 
 # Construccion de modelos
 def newCatalog():
     catalog = {
-        'Artistas': None,
-        'Artworks': None
+        ARTISTAS: None,
+        ARTWORKS: None
     }
 
-    catalog['Artistas'] = lt.newList()
-    catalog['Artworks'] = lt.newList()
+    catalog[ARTISTAS] = lt.newList()
+    catalog[ARTWORKS] = lt.newList()
     return catalog
 
 
 # Funciones para agregar informacion al catalogo
 def addArtist(catalog, artista):
-    lt.addLast(catalog['Artistas'], artista)
+    lt.addLast(catalog[ARTISTAS], artista)
 
 
 def addArtwork(catalog, artwork):
-    lt.addLast(catalog['Artworks'], artwork)
+    lt.addLast(catalog[ARTWORKS], artwork)
     
 # Funciones para creacion de datos
 

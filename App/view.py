@@ -26,6 +26,10 @@ import controller
 from DISClib.ADT import list as lt
 assert cf
 
+#Dicionario
+ARTISTAS = 'Artistas'
+ARTWORKS = 'Artworks'
+
 
 """
 La vista se encarga de la interacción con el usuario
@@ -70,8 +74,8 @@ if __name__ == "__main__":
 
             if catalog != None:
                 print("Carga de datos exitoso")
-                print('Artistas cargados:' + str(lt.size(catalog['Artistas'])))
-                print("artworks cargados: " + str(lt.size(catalog['Artworks'])))
+                print('Artistas cargados:' + str(lt.size(catalog[ARTISTAS])))
+                print("artworks cargados: " + str(lt.size(catalog[ARTWORKS])))
 
             else:
                 print("algo salio mal")
