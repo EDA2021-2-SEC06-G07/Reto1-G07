@@ -37,6 +37,8 @@ El controlador se encarga de mediar entre la vista y el modelo.
 def initCatalog():
     catalog = model.newCatalog()
     return catalog
+
+
 def loadCatalog():
     pass
 
@@ -45,12 +47,14 @@ def loadData(catalog):
      loadArtist(catalog)
      loadArtworks(catalog)
     
+
 def loadArtist(catalog):
     artistsfile = cf.data_dir + 'MoMa/Artists-utf8-small.csv'
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     i = 0
     for artist in input_file:
         model.addArtist(catalog, artist)
+
 
 def loadArtworks(catalog):
     artworksfile = cf.data_dir + 'MoMa/Artworks-utf8-small.csv'

@@ -50,7 +50,9 @@ catalog = None
 
 
 def loadCatalog():
-    return controller.loadData(catalog)
+    catalog = controller.initCatalog()
+    controller.loadData(catalog)
+    return catalog
 
 """
 Menu principal
@@ -62,7 +64,7 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs[0]) == 0:
             print("Cargando información de los archivos ....")
-            catalog = controller.initCatalog()
+            
             catalog = loadCatalog()
 
             if catalog != None:
