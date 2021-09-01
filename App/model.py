@@ -38,10 +38,10 @@ los mismos.
 
 # Construccion de modelos
 def newCatalog():
-    catalog = {'Artists': None,
+    catalog = {'Artistas': None,
                'Artworks': None,}
 
-    catalog['Artists'] = lt.newList()
+    catalog['Artistas'] = lt.newList()
     catalog['Artworks'] = lt.newList()
     
     
