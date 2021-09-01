@@ -25,6 +25,7 @@
  """
 
 
+from DISClib.DataStructures.listnode import newSingleNode
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
@@ -37,32 +38,30 @@ los mismos.
 
 # Construccion de modelos
 def newCatalog():
-    catalog = {'ConstituentID': None,
-               'DisplayName': None,
-               'ArtistBio': None,
-               'Nationality': None,
-               'Gender': None,
-               'BeginDate' : None,
-               'EndDate': None,
-               'Wiki QID' : None,
-               'ULAN': None}
+    catalog = {'Artists': None,
+               '': None,
+               'Artworks': None,}
 
-    catalog['ConstituentID'] = lt.newList()
-    catalog['DisplayName'] = lt.newList()
-    catalog['ArtistBio'] = lt.newList()
-    catalog['Nationality'] = lt.newList()
-    catalog['Gender'] = lt.newList()
-    catalog['BeginDate'] = lt.newList()
-    catalog['EndDate'] = lt.newList()
-    catalog['Wiki QID'] = lt.newList()
-    catalog['ULAN'] = lt.newList()
+    catalog['Artists'] = lt.newList()
+    catalog['Artworks'] = lt.newList()
+    
     
     return catalog
-    
-def addConstituentID(catalog, book):
-    lt.addLast(catalog['ConstituentID'], book)
+
+def addArtist(catalog, artist):
+    t = newArtist(artist['tag_name'], artist['tag_id'])
+    lt.addLast(catalog['Artists'], t)
     
 # Funciones para creacion de datos
+def newArtist(name):
+    """
+    Crea una nueva estructura para modelar los libros de
+    un autor y su promedio de ratings
+    """
+    author = {'name': "", "books": None,  "average_rating": 0}
+    author['name'] = name
+    author['books'] = lt.newList('ARRAY_LIST')
+    return author
 
 # Funciones de consulta
 

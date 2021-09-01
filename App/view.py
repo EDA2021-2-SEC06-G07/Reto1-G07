@@ -67,6 +67,8 @@ if __name__ == "__main__":
 
             if catalog != None:
                 print("Carga de datos exitoso")
+                print('Artistas cargados:' + + str(lt.size(catalog['Artistas'])))
+
             else:
                 print("algo salio mal")
 
