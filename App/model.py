@@ -39,7 +39,6 @@ los mismos.
 # Construccion de modelos
 def newCatalog():
     catalog = {'Artists': None,
-               '': None,
                'Artworks': None,}
 
     catalog['Artists'] = lt.newList()
@@ -47,21 +46,12 @@ def newCatalog():
     
     
     return catalog
-
+# Funciones para agregar informacion al catalogo
 def addArtist(catalog, artist):
-    t = newArtist(artist['tag_name'], artist['tag_id'])
-    lt.addLast(catalog['Artists'], t)
+    lt.addLast(catalog['Artists'], artist)
     
 # Funciones para creacion de datos
-def newArtist(name):
-    """
-    Crea una nueva estructura para modelar los libros de
-    un autor y su promedio de ratings
-    """
-    author = {'name': "", "books": None,  "average_rating": 0}
-    author['name'] = name
-    author['books'] = lt.newList('ARRAY_LIST')
-    return author
+
 
 # Funciones de consulta
 
