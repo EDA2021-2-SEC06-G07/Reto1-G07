@@ -42,7 +42,8 @@ def printMenu():
     3- Lista de obras de un artista por tecnica
     4- Lista de obras por nacionalidad de creadores
     5- Transportar obras de un departamento
-    6- Proponer nueva expocicion en el museo B"""
+    6- Proponer nueva expocicion en el museo B
+    9- To exit"""
     print(menu)
 
 
@@ -70,6 +71,7 @@ if __name__ == "__main__":
             if catalog != None:
                 print("Carga de datos exitoso")
                 print('Artistas cargados:' + str(lt.size(catalog['Artistas'])))
+                print("artworks cargados: " + str(lt.size(catalog['Artworks'])))
 
             else:
                 print("algo salio mal")

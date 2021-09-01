@@ -25,7 +25,9 @@ import model
 import csv
 
 
-
+#constantes
+ARTISTS = 'MoMa/Artists-utf8-small.csv'
+ARTWORKS = 'MoMa/Artworks-utf8-small.csv'
 
 
 
@@ -49,7 +51,7 @@ def loadData(catalog):
     
 
 def loadArtist(catalog):
-    artistsfile = cf.data_dir + 'MoMa/Artists-utf8-small.csv'
+    artistsfile = cf.data_dir + ARTISTS
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     i = 0
     for artist in input_file:
@@ -57,7 +59,7 @@ def loadArtist(catalog):
 
 
 def loadArtworks(catalog):
-    artworksfile = cf.data_dir + 'MoMa/Artworks-utf8-small.csv'
+    artworksfile = cf.data_dir + ARTWORKS
     input_file = csv.DictReader(open(artworksfile, encoding='utf-8'))
     i = 0
     for artwork in input_file:

@@ -38,8 +38,10 @@ los mismos.
 
 # Construccion de modelos
 def newCatalog():
-    catalog = {'Artistas': None,
-               'Artworks': None}
+    catalog = {
+        'Artistas': None,
+        'Artworks': None
+    }
 
     catalog['Artistas'] = lt.newList()
     catalog['Artworks'] = lt.newList()
@@ -51,8 +53,8 @@ def addArtist(catalog, artista):
     lt.addLast(catalog['Artistas'], artista)
 
 
-def addArtwork(catalog, artista):
-    lt.addLast(catalog['Artistas'], artista)
+def addArtwork(catalog, artwork):
+    lt.addLast(catalog['Artworks'], artwork)
     
 # Funciones para creacion de datos
 
