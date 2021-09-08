@@ -62,6 +62,7 @@ def loadArtist(catalog):
     input_file = csv.DictReader(open(artistsfile, encoding='utf-8'))
     i = 0
     for artist in input_file:
+        artist['BeginDate'] = int(artist['BeginDate'])
         model.addArtist(catalog, artist)
 
 
@@ -72,6 +73,8 @@ def loadArtworks(catalog):
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
 
+def listaCronologicaArtistas(catalogo, year1, year2):
+    return model.listaCronologicaArtistas(catalogo, year1, year2)
 
     
 # Funciones de ordenamiento

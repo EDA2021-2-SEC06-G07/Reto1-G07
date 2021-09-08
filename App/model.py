@@ -41,6 +41,7 @@ los mismos.
 ARTISTAS = 'Artistas'
 ARTWORKS = 'Artworks'
 
+
 # Construccion de modelos
 def newCatalog():
     catalog = {
@@ -48,8 +49,8 @@ def newCatalog():
         ARTWORKS: None
     }
 
-    catalog[ARTISTAS] = lt.newList()
-    catalog[ARTWORKS] = lt.newList()
+    catalog[ARTISTAS] = lt.newList(datastructure="ARRAY_LIST")
+    catalog[ARTWORKS] = lt.newList(datastructure="ARRAY_LIST")
     return catalog
 
 
@@ -60,6 +61,19 @@ def addArtist(catalog, artista):
 
 def addArtwork(catalog, artwork):
     lt.addLast(catalog[ARTWORKS], artwork)
+
+
+def listaCronologicaArtistas(catalogo, year1, year2):
+    #create linked list
+    artistas = lt.newList(datastructure="ARRAY_LIST")
+    #look in catalogo for the relevant data
+    for i in range(0, lt.size(catalogo) - 1):
+        element = lt.getElement(catalogo, i)
+        element_date = element['BeginDate']
+        if element_date > year1 and element_date < year2:
+            add_element(artistas, element)
+
+    return artistas
     
 # Funciones para creacion de datos
 
@@ -69,3 +83,47 @@ def addArtwork(catalog, artwork):
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Funciones de ordenamiento
+
+def add_element(artistas, element):
+    
+    size = lt.size(artistas)
+    element_date = element['BeginDate']
+    #si no hay elementos, agreguelo
+    if size == 0:
+        lt.addLast(artistas, element)
+    #si solo hay un elemento
+    elif size == 1:
+        if lt.firstElement(artistas)['BeginDate'] < element_date:
+            lt.addLast(artistas, element)
+        else: 
+            lt.addFirst(artistas, element)
+    #si el elemento se tiene que agregar al principio
+    elif lt.firstElement(artistas)['BeginDate'] > element_date:
+        lt.addFirst(artistas, element)
+    elif lt.lastElement(artistas)['BeginDate'] < element_date:
+        lt.addLast(artistas, element)
+    else:
+        top_boundary = size -1
+        buttom_boundary = 0
+        pos = int(top_boundary / 2) + 1
+        pos_found = False
+
+        #binary search to find the position of the element
+        while not pos_found:
+            #print('pos:'+str(pos))
+            current_date  = lt.getElement(artistas, pos)['BeginDate']
+            prev_date = lt.getElement(artistas, pos-1)['BeginDate']
+            element_date = element['BeginDate']
+            #current position is the position we are looking for
+            if prev_date <= element_date and element_date <= current_date:
+                pos_found = True
+            #position is to large
+            elif prev_date > element_date:
+                top_boundary = pos
+                pos -= int((top_boundary - buttom_boundary) / 2)
+            #position is to small
+            elif current_date < element_date:
+                buttom_boundary = pos
+                pos += int((top_boundary - buttom_boundary) / 2) + 1
+
+        lt.insertElement(artistas, element, pos)

@@ -59,6 +59,34 @@ def loadCatalog():
     controller.loadData(catalog)
     return catalog
 
+def listaCronologicaArtistas(year1, year2):
+    artistas = controller.listaCronologicaArtistas(catalog[ARTISTAS], year1, year2)
+    size = lt.size(artistas)
+    result = "Numero de artistas entre " + str(year1) + " y " + str(year2) + ":" + str(size) + "\n"
+    
+    out = [
+        lt.getElement(artistas, 0), 
+        lt.getElement(artistas, 1), 
+        lt.getElement(artistas, 2), 
+        lt.getElement(artistas, size - 3), 
+        lt.getElement(artistas, size - 2), 
+        lt.getElement(artistas, size - 1)
+    ]
+    for artist in out:
+        name = artist['DisplayName']
+        birth = artist['BeginDate']
+        death = artist['EndDate']
+        nationality = artist['Nationality']
+        gender = artist['Gender']
+
+        result += """Name:{}, 
+        Birth:{}, 
+        death:{}, 
+        nationality:{}, 
+        gender:{}
+""".format(name, birth, death, nationality, gender)
+    return result
+
 """
 Menu principal
 """
@@ -81,6 +109,9 @@ if __name__ == "__main__":
                 print("algo salio mal")
 
         elif int(inputs[0]) == 1:
+            year1 = int(input('Año inicial:'))
+            year2 = int(input('Año final:'))
+            print(listaCronologicaArtistas(year1, year2))
             pass
         elif int(inputs[0]) == 2:
             pass
