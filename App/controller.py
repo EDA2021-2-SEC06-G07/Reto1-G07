@@ -43,8 +43,8 @@ El controlador se encarga de mediar entre la vista y el modelo.
 """
 
 # Inicialización del Catálogo de libros
-def initCatalog():
-    catalog = model.newCatalog()
+def initCatalog(struture_type):
+    catalog = model.newCatalog(struture_type)
     return catalog
 
 
@@ -78,8 +78,7 @@ def listaCronologicaArtistas(catalogo, year1, year2):
     return model.listaCronologicaArtistas(catalogo, year1, year2)
 
 
-def get_nationalities(catalog):
-    model.sort(catalog[ARTISTAS], "ConstituentID")
+def get_nationalities(catalog, size):
     return model.get_nationalities(catalog)
 
     

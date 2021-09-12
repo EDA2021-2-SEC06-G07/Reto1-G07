@@ -43,14 +43,14 @@ ARTWORKS = 'Artworks'
 
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(struture_type):
     catalog = {
         ARTISTAS: None,
         ARTWORKS: None
     }
 
-    catalog[ARTISTAS] = lt.newList(datastructure="ARRAY_LIST")
-    catalog[ARTWORKS] = lt.newList(datastructure="ARRAY_LIST")
+    catalog[ARTISTAS] = lt.newList(datastructure=struture_type)
+    catalog[ARTWORKS] = lt.newList(datastructure=struture_type)
     return catalog
 
 
@@ -77,7 +77,10 @@ def listaCronologicaArtistas(catalogo, year1, year2):
     
 
 def get_nationalities(catalog):
-    pass    
+    # First we need to sort the catalog in artist to get the ConstituentID
+    insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
+
+
 # Funciones para creacion de datos
 
 

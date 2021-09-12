@@ -54,8 +54,8 @@ def printMenu():
 catalog = None
 
 
-def loadCatalog():
-    catalog = controller.initCatalog()
+def loadCatalog(struture_type):
+    catalog = controller.initCatalog(struture_type)
     controller.loadData(catalog)
     return catalog
 
@@ -101,9 +101,15 @@ if __name__ == "__main__":
         printMenu()
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs[0]) == 0:
+            print("Como quieres guardar los datos? ")
+            struture_type = input("Pon 1 para ArrayList, 2 para LinkedList")
+            if struture_type == 2:
+                struture_type = 'SINGLE_LINKED'
+            else:
+                struture_type = 'ARRAY_LIST'
             print("Cargando información de los archivos ....")
             
-            catalog = loadCatalog()
+            catalog = loadCatalog(struture_type)
 
             if catalog != None:
                 print("Carga de datos exitoso")
