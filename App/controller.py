@@ -80,11 +80,14 @@ def listaCronologicaArtistas(catalogo, year1, year2):
 def listaobras(catalogo, date1, date2):
     return model.listaobras(catalogo,date1,date2)
 
-def get_nationalities(catalog, size):
+def get_nationalities(catalog):
     return model.get_nationalities(catalog)
 
     
 # Funciones de ordenamiento
+def sort_artists(atrisits, size, sort_method):
+    model.sort_artists(atrisits, size, sort_method)
+
 
 # Funciones de consulta sobre el catálogo
 def ArtistaEncontrado(catalogo, nombreartista):

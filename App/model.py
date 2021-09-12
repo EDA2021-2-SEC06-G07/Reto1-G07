@@ -26,9 +26,13 @@
 
 
 from DISClib.DataStructures.listnode import newSingleNode
+import time
 import config as cf
 from DISClib.ADT import list as lt
-from DISClib.Algorithms.Sorting import shellsort as sa
+from DISClib.Algorithms.Sorting import shellsort as ss
+from DISClib.Algorithms.Sorting import insertionsort as ins
+from DISClib.Algorithms.Sorting import mergesort as ms
+from DISClib.Algorithms.Sorting import quicksort as qs
 from datetime import date
 assert cf
 
@@ -73,17 +77,20 @@ def listaCronologicaArtistas(catalogo, year1, year2):
         element_date = element['BeginDate']
         if element_date > year1 and element_date < year2:
             add_element(artistas, element)
-
     return artistas
 
+
 def listaobras(catalogo, date1, date2):
+    
     obras = lt.newList(datastructure="ARRAY_LIST")
     
     for i in range(0, lt.size(catalogo) - 1):
         element = lt.getElement(catalogo, i)
         element_dates = element['DateAcquired']
         if element_dates > date1 and element_dates < date2:
-            add_element(obras, element)
+            lt.add_element(obras, element)
+    return obras
+
 
 def get_nationalities(catalog):
     # First we need to sort the catalog in artist to get the ConstituentID
@@ -98,7 +105,7 @@ def sublista(list, size):
     return lt.subList(list, 0, size - 1)
 # Funciones para creacion de datos
 
-    return obras
+    
 
 
     
@@ -149,6 +156,26 @@ def cmp_artwork_date_acquired(aw1, aw2):
 
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
+
+def sort_artists(catalog, size, sort_method):
+    sublist = sublista(catalog, size)
+    sublist = sublist.copy()
+
+    start_time = time.process_time()
+
+    if sort_method == 1:
+        ins.sort(sublist, cmp_artwork_date_acquired)
+    elif sort_method == 2:
+        ss.sort(sublist, cmp_artwork_date_acquired)
+    elif sort_method == 3:
+        qs.sort(sublist, cmp_artwork_date_acquired)
+    else:
+        ms.sort(sublist, cmp_artwork_date_acquired)
+
+    stop_time = time.process_time()
+    elapsed_time_mseg = (stop_time - start_time)*1000
+    return elapsed_time_mseg
+
 
 def add_element(artistas, element):
     

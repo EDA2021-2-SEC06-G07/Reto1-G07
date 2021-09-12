@@ -49,6 +49,7 @@ def printMenu():
     4- Lista de obras por nacionalidad de creadores
     5- Transportar obras de un departamento
     6- Proponer nueva expocicion en el museo B
+    7- Sort catalog by method indicated
     9- To exit"""
     print(menu)
 
@@ -125,7 +126,6 @@ if __name__ == "__main__":
             year1 = int(input('Año inicial:'))
             year2 = int(input('Año final:'))
             print(listaCronologicaArtistas(year1, year2))
-            pass
         elif int(inputs[0]) == 2:
             
             date1 = (input("fecha inicial: "))
@@ -146,5 +146,12 @@ if __name__ == "__main__":
             pass
         elif int(inputs[0]) == 6:
             pass
+        elif int(inputs[0]) == 7:
+            size = int(input("what is the size of the sort?"))
+            print("What sorting method do you want?")
+            sort_method = int(input("1: incertion, 2: shell, 3: quick, 4: merge"))
+
+            result = controller.sort_artists(catalog, size, sort_method)
+            print("la muestra de " + size + " elementos se demoro: " + result + "ms.")
         else:
             running = False
