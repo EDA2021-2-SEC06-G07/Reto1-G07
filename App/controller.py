@@ -63,6 +63,7 @@ def loadArtist(catalog):
     i = 0
     for artist in input_file:
         artist['BeginDate'] = int(artist['BeginDate'])
+        artist['ConstituentID'] = int(artist['ConstituentID'])
         model.addArtist(catalog, artist)
 
 
