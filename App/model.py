@@ -44,14 +44,14 @@ ARTWORKS = 'Artworks'
 
 
 # Construccion de modelos
-def newCatalog():
+def newCatalog(struture_type):
     catalog = {
         ARTISTAS: None,
         ARTWORKS: None
     }
 
-    catalog[ARTISTAS] = lt.newList(datastructure="ARRAY_LIST")
-    catalog[ARTWORKS] = lt.newList(datastructure="ARRAY_LIST")
+    catalog[ARTISTAS] = lt.newList(datastructure=struture_type)
+    catalog[ARTWORKS] = lt.newList(datastructure=struture_type)
     return catalog
 
 
@@ -85,6 +85,19 @@ def listaobras(catalogo, date1, date2):
         if element_dates > date1 and element_dates < date2:
             add_element(obras, element)
 
+def get_nationalities(catalog):
+    # First we need to sort the catalog in artist to get the ConstituentID
+    insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
+
+
+# size is the size of the new sublist
+def sublista(list, size):
+    if(size > lt.size(list)):
+        print("size bigger than the amount of data")
+        return list
+    return lt.subList(list, 0, size - 1)
+# Funciones para creacion de datos
+
     return obras
 
 
@@ -116,6 +129,25 @@ def EncontrarID(catalogo,id):
             print(dicc)
 
     return None
+#-----------------------------------------------------------------------------------
+# Funciones utilizadas para comparar elementos dentro de una lista
+
+# Compares the artworks by date aquired
+def cmp_artwork_date_acquired(aw1, aw2):
+    #asume they are equal
+    result = 0
+
+    date1 = int(aw1['DateAcquired'].replace("-", ""))
+    date2 = int(aw2['DateAcquired'].replace("-", ""))
+    #check if they are actualy not equal an do the needed change
+    if date1 < date2:
+        result = -1
+    elif date1 > date2:
+        result = 1
+    
+    return result
+
+#--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
 def add_element(artistas, element):
@@ -160,4 +192,42 @@ def add_element(artistas, element):
                 buttom_boundary = pos
                 pos += int((top_boundary - buttom_boundary) / 2) + 1
 
+        #after you found the position the element will be in, add it to that position
         lt.insertElement(artistas, element, pos)
+
+
+
+# implementing timsort 
+# this implementation was done by following the video series of Gaurav Sen on Tim sort
+# link: https://www.youtube.com/watch?v=emeME__917E&list=PLMCXHnjXnTntLcLmA5SqhMspm7burHi3m
+
+
+# as said in part 1 and 2 we need to start by implementing insertion.
+# this is because in the sortin algorithms of order O(n²) this is the fastest with a very low constant
+# insertion sort is the most eficient algotithm in arrays of small sizes. (32 - 64)
+
+
+# insertion() orders the elements between start and end
+def insertion(list, start, end, id):
+    #i is the element we are going to insert
+    i = start + 1
+    while i >= end :
+        j = i - 1
+        element = lt.getElement(list, i)
+        while element[id] < (lt.getElement(list, j)[id]):
+            lt.exchange(list, j, j + 1)
+            j -= 1
+        i += 1
+
+
+# more eficient than insertion because it the search por the position is O(logn)
+# but the algorithm itself is still O(n²)
+def binary_insertion(list, start, end, id):
+    i = start + 1
+    while i >= end :
+        j = i - 1
+        element = lt.getElement(list, i)
+        while element[id] < (lt.getElement(list, j)[id]):
+            lt.exchange(list, j, j + 1)
+            j -= 1
+        i += 1
