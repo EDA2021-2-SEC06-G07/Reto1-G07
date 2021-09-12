@@ -81,11 +81,18 @@ def get_nationalities(catalog):
     insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
 
 
+# size is the size of the new sublist
+def sublista(list, size):
+    if(size > lt.size(list)):
+        print("size bigger than the amount of data")
+        return list
+    return lt.subList(list, 0, size - 1)
 # Funciones para creacion de datos
 
 
 # Funciones de consulta
 
+#-----------------------------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
 
 # Compares the artworks by date aquired
@@ -103,7 +110,7 @@ def cmp_artwork_date_acquired(aw1, aw2):
     
     return result
 
-
+#--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
 def add_element(artistas, element):
