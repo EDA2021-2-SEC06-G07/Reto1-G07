@@ -88,6 +88,22 @@ def get_nationalities(catalog):
 
 # Funciones utilizadas para comparar elementos dentro de una lista
 
+# Compares the artworks by date aquired
+def cmp_artwork_date_acquired(aw1, aw2):
+    #asume they are equal
+    result = 0
+
+    date1 = int(aw1['DateAcquired'].replace("-", ""))
+    date2 = int(aw2['DateAcquired'].replace("-", ""))
+    #check if they are actualy not equal an do the needed change
+    if date1 < date2:
+        result = -1
+    elif date1 > date2:
+        result = 1
+    
+    return result
+
+
 # Funciones de ordenamiento
 
 def add_element(artistas, element):
