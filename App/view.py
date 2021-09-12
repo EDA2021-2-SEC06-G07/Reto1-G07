@@ -59,6 +59,7 @@ def loadCatalog():
     controller.loadData(catalog)
     return catalog
 
+
 def listaCronologicaArtistas(year1, year2):
     artistas = controller.listaCronologicaArtistas(catalog[ARTISTAS], year1, year2)
     size = lt.size(artistas)
@@ -86,6 +87,10 @@ def listaCronologicaArtistas(year1, year2):
         gender:{}
 """.format(name, birth, death, nationality, gender)
     return result
+
+
+def  get_nationalities():
+    return controller.get_nationalities(catalog)
 
 """
 Menu principal
@@ -118,7 +123,9 @@ if __name__ == "__main__":
         elif int(inputs[0]) == 3:
             pass
         elif int(inputs[0]) == 4:
-            pass
+            nacionalidades = get_nationalities()
+            print('nacionalidades:')
+            
         elif int(inputs[0]) == 5:
             pass
         elif int(inputs[0]) == 6:

@@ -126,4 +126,8 @@ def add_element(artistas, element):
                 buttom_boundary = pos
                 pos += int((top_boundary - buttom_boundary) / 2) + 1
 
+        #after you found the position the element will be in, add it to that position
         lt.insertElement(artistas, element, pos)
+
+
+def get_nationalities(catalog):
