@@ -20,6 +20,8 @@
  * along withthis program.  If not, see <http://www.gnu.org/licenses/>.
  """
 
+
+from io import DEFAULT_BUFFER_SIZE
 import config as cf
 import sys
 import controller
@@ -104,7 +106,7 @@ if __name__ == "__main__":
                 print("Carga de datos exitoso")
                 print('Artistas cargados:' + str(lt.size(catalog[ARTISTAS])))
                 print("artworks cargados: " + str(lt.size(catalog[ARTWORKS])))
-
+                
             else:
                 print("algo salio mal")
 
@@ -114,8 +116,16 @@ if __name__ == "__main__":
             print(listaCronologicaArtistas(year1, year2))
             pass
         elif int(inputs[0]) == 2:
+            
+            date1 = (input("fecha inicial: "))
+            date2 = (input("fecha final: "))
+            print(controller.listaobras(date1,date2))
             pass
         elif int(inputs[0]) == 3:
+            nombreartista = input("Coloque el artista: ")
+            #print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
+            print(controller.IDencontrado(catalog[ARTWORKS], controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
+            
             pass
         elif int(inputs[0]) == 4:
             pass

@@ -29,6 +29,7 @@ from DISClib.DataStructures.listnode import newSingleNode
 import config as cf
 from DISClib.ADT import list as lt
 from DISClib.Algorithms.Sorting import shellsort as sa
+from datetime import date
 assert cf
 
 """
@@ -57,11 +58,11 @@ def newCatalog():
 # Funciones para agregar informacion al catalogo
 def addArtist(catalog, artista):
     lt.addLast(catalog[ARTISTAS], artista)
-
+    
 
 def addArtwork(catalog, artwork):
     lt.addLast(catalog[ARTWORKS], artwork)
-
+    
 
 def listaCronologicaArtistas(catalogo, year1, year2):
     #create linked list
@@ -74,14 +75,47 @@ def listaCronologicaArtistas(catalogo, year1, year2):
             add_element(artistas, element)
 
     return artistas
+
+def listaobras(catalogo, date1, date2):
+    obras = lt.newList(datastructure="ARRAY_LIST")
+    
+    for i in range(0, lt.size(catalogo) - 1):
+        element = lt.getElement(catalogo, i)
+        element_dates = element['DateAcquired']
+        if element_dates > date1 and element_dates < date2:
+            add_element(obras, element)
+
+    return obras
+
+
     
 # Funciones para creacion de datos
 
-
 # Funciones de consulta
-
+def EncontrarArtista(catalogo, nombreartista):
+    
+    for i in range(0, lt.size(catalogo) - 1):
+        element = lt.getElement(catalogo, i)
+        if element['DisplayName'] == str(nombreartista):
+            id = element['ConstituentID']
+            
+    return id
 # Funciones utilizadas para comparar elementos dentro de una lista
+def EncontrarID(catalogo,id):
+    ida = ''
+    for a in range(0, lt.size(catalogo) - 1):
+        element = lt.getElement(catalogo, a)
+        #obras = lt.newList(datastructure='ARRAY_LIST')
+        if str(id) in str(element['ConstituentID']):
+            dicc={}
+            dicc['Title']= element['Title']
+            dicc['DateAcquired']= element['DateAcquired']
+            dicc['Medium']= element['Medium']
+            dicc['Dimensions']= element['Dimensions']
+            #lt.addLast(obras, dicc)
+            print(dicc)
 
+    return None
 # Funciones de ordenamiento
 
 def add_element(artistas, element):

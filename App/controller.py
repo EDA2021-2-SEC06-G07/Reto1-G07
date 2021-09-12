@@ -28,8 +28,8 @@ import csv
 #constantes
 #--------------------------
 #file names
-ARTISTS_FILE = 'MoMa/Artists-utf8-small.csv'
-ARTWORKS_FILE = 'MoMa/Artworks-utf8-small.csv'
+ARTISTS_FILE = 'MoMa/Artists-utf8-large.csv'
+ARTWORKS_FILE = 'MoMa/Artworks-utf8-large.csv'
 
 #Dicionario
 ARTISTAS = 'Artistas'
@@ -76,7 +76,12 @@ def loadArtworks(catalog):
 def listaCronologicaArtistas(catalogo, year1, year2):
     return model.listaCronologicaArtistas(catalogo, year1, year2)
 
-    
+def listaobras(catalogo, date1, date2):
+    return model.listaobras(catalogo,date1,date2)
 # Funciones de ordenamiento
 
 # Funciones de consulta sobre el catálogo
+def ArtistaEncontrado(catalogo, nombreartista):
+    return model.EncontrarArtista(catalogo, nombreartista)
+def IDencontrado(catalogo, id):
+    return model.EncontrarID(catalogo, id)
