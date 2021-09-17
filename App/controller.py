@@ -28,8 +28,8 @@ import csv
 #constantes
 #--------------------------
 #file names
-ARTISTS_FILE = 'MoMa/Artists-utf8-large.csv'
-ARTWORKS_FILE = 'MoMa/Artworks-utf8-large.csv'
+ARTISTS_FILE = 'MoMa/Artists-utf8-small.csv'
+ARTWORKS_FILE = 'MoMa/Artworks-utf8-small.csv'
 
 #Dicionario
 ARTISTAS = 'Artistas'

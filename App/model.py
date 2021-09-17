@@ -34,6 +34,7 @@ from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import mergesort as ms
 from DISClib.Algorithms.Sorting import quicksort as qs
 from datetime import date
+from statistics import mode 
 assert cf
 
 """
@@ -65,6 +66,7 @@ def addArtist(catalog, artista):
     
 
 def addArtwork(catalog, artwork):
+    #-------------------------------
     lt.addLast(catalog[ARTWORKS], artwork)
     
 
@@ -84,14 +86,17 @@ def listaobras(catalogo, date1, date2):
     
     obras = lt.newList(datastructure="ARRAY_LIST")
     
-    for i in range(0, lt.size(catalogo) - 1):
+    for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
         element_dates = element['DateAcquired']
         if element_dates > date1 and element_dates < date2:
             lt.add_element(obras, element)
     return obras
-
-
+#date.date(a{0},a{1},c{2})
+#string.split("-")
+#pasar a entero
+#(2020, 09,12)   (1999,20,20)
+ 
 def get_nationalities(catalog):
     # First we need to sort the catalog in artist to get the ConstituentID
     insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
@@ -114,28 +119,51 @@ def sublista(list, size):
 # Funciones de consulta
 def EncontrarArtista(catalogo, nombreartista):
     
-    for i in range(0, lt.size(catalogo) - 1):
+    for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
         if element['DisplayName'] == str(nombreartista):
             id = element['ConstituentID']
             
     return id
 # Funciones utilizadas para comparar elementos dentro de una lista
+
 def EncontrarID(catalogo,id):
-    ida = ''
-    for a in range(0, lt.size(catalogo) - 1):
+    obras = lt.newList(datastructure='ARRAY_LIST')
+    medios = lt.newList(datastructure='ARRAY_LIST')
+    for a in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, a)
-        #obras = lt.newList(datastructure='ARRAY_LIST')
+        
         if str(id) in str(element['ConstituentID']):
+            # Se guarda en un diccionario donde la llave es 'elements' y el valor es una lista de tecnicas
+            lt.addLast(medios,element['Medium'])
+            # Lista de diccionarios de cada obra con datos pedidos
             dicc={}
             dicc['Title']= element['Title']
             dicc['DateAcquired']= element['DateAcquired']
-            dicc['Medium']= element['Medium']
             dicc['Dimensions']= element['Dimensions']
-            #lt.addLast(obras, dicc)
-            print(dicc)
+            dicc['Medium']= element['Medium']
+            lt.addLast(obras, dicc)
+            #La lista obras contiene todos los trabajos del artista
+    mas_usada = mode(medios['elements'])
 
-    return None
+    #insertaremos a una lista los datos pedidos segun metodo mas usado y el autor
+    usada = lt.newList(datastructure='ARRAY_LIST')
+    for a in range(1, lt.size(obras) + 1):
+        element = lt.getElement(obras, a)
+        if str(mas_usada) in str(element['Medium']):
+            dicc={}
+            dicc['Title']= element['Title']
+            dicc['DateAcquired']= element['DateAcquired']
+            dicc['Dimensions']= element['Dimensions']
+            dicc['Medium']= mas_usada
+            lt.addLast(usada, dicc)
+
+    print("El total de obras del autor son: ", lt.size(obras))
+    print('------------------------------------')
+    print("La tecnica mas usada es", mas_usada)
+    print('------------------------------------')
+    print("la lista de la tecnica mas usada es: ")
+    return usada
 #-----------------------------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
 

@@ -26,6 +26,7 @@ import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+#import pandas as pd
 assert cf
 
 #Dicionario
@@ -105,7 +106,7 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs[0]) == 0:
             print("Como quieres guardar los datos? ")
-            struture_type = input("Pon 1 para ArrayList, 2 para LinkedList")
+            struture_type = input("Pon 1 para ArrayList, 2 para LinkedList: ")
             if struture_type == 2:
                 struture_type = 'SINGLE_LINKED'
             else:
@@ -134,7 +135,8 @@ if __name__ == "__main__":
             pass
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
-            #print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
+            print("El ID del artista es")
+            print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
             print(controller.IDencontrado(catalog[ARTWORKS], controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
             
             pass
@@ -149,7 +151,7 @@ if __name__ == "__main__":
         elif int(inputs[0]) == 7:
             size = int(input("what is the size of the sort?"))
             print("What sorting method do you want?")
-            sort_method = int(input("1: incertion, 2: shell, 3: quick, 4: merge"))
+            sort_method = int(input("1: incertion, 2: shell, 3: quick, 4: merge: "))
 
             result = controller.sort_artists(catalog, size, sort_method)
             print("la muestra de " + size + " elementos se demoro: " + result + "ms.")
