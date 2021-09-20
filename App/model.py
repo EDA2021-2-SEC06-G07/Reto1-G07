@@ -33,7 +33,7 @@ from DISClib.Algorithms.Sorting import shellsort as ss
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import mergesort as ms
 from DISClib.Algorithms.Sorting import quicksort as qs
-from datetime import date
+import datetime
 from statistics import mode 
 assert cf
 
@@ -81,21 +81,6 @@ def listaCronologicaArtistas(catalogo, year1, year2):
             add_element(artistas, element)
     return artistas
 
-
-def listaobras(catalogo, date1, date2):
-    
-    obras = lt.newList(datastructure="ARRAY_LIST")
-    
-    for i in range(1, lt.size(catalogo) + 1):
-        element = lt.getElement(catalogo, i)
-        element_dates = element['DateAcquired']
-        if element_dates > date1 and element_dates < date2:
-            lt.add_element(obras, element)
-    return obras
-#date.date(a{0},a{1},c{2})
-#string.split("-")
-#pasar a entero
-#(2020, 09,12)   (1999,20,20)
  
 def get_nationalities(catalog):
     # First we need to sort the catalog in artist to get the ConstituentID
@@ -118,7 +103,7 @@ def sublista(list, size):
 
 # Funciones de consulta
 def EncontrarArtista(catalogo, nombreartista):
-    
+    print(nombreartista)
     for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
         if element['DisplayName'] == str(nombreartista):
@@ -166,12 +151,32 @@ def EncontrarID(catalogo,id):
     return usada
 #-----------------------------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
+def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
+    FechaFinal = datetime.date(año2,mes2,dia2)
+    FechaInicial = datetime.date(año1,mes1,dia1)
+    #Se trasformo los datos en formato de fecha para poder comparar
+    obras= lt.newList(datastructure='ARRAY_LIST')
+    for a in range(1, lt.size(catalogo) + 1):
+        fecha = None
+        element = lt.getElement(catalogo, a)
+        if  element['DateAcquired'] != None and element['DateAcquired'] != '' :
+            fecha= element['DateAcquired'].split('-')
+            fecha2 = datetime.date(int(fecha[0]),int(fecha[1]), int(fecha[2]))
+            if fecha2 < FechaFinal and fecha2 > FechaInicial:
+                dicc={}
+                dicc['Title']= element['Title']
+                dicc['DateAcquired']= fecha2
+                dicc['CreditLine']= element['CreditLine']
+
+                lt.addLast(obras,dicc)
+    
+    
+    return obras
 
 # Compares the artworks by date aquired
 def cmp_artwork_date_acquired(aw1, aw2):
     #asume they are equal
     result = 0
-
     date1 = int(aw1['DateAcquired'].replace("-", ""))
     date2 = int(aw2['DateAcquired'].replace("-", ""))
     #check if they are actualy not equal an do the needed change
@@ -184,6 +189,40 @@ def cmp_artwork_date_acquired(aw1, aw2):
 
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
+def mergeSort(lst,lessfunction):
+    print(lst)
+    print('qwqwqwq')
+    size = lt.size(lst)
+    if size > 1:
+        mid = (size // 2)
+        leftlist = lt.subList(lst, 1, mid)
+        rightlist = lt.subList(lst, mid+1, size - mid)
+        ms(leftlist, lessfunction)
+        ms(rightlist, lessfunction)
+        i = j = k = 1
+        leftelements = lt.size(leftlist)
+        rightelements = lt.size(rightlist)
+        while (i <= leftelements) and (j <= rightelements):
+            elemi = lt.getElement(leftlist, i)
+            elemj = lt.getElement(rightlist, j)
+            print(elemi)
+            if lessfunction(elemj["DateAcquired"], elemi["DateAcquired"]): # caso estricto elemj < elemi
+                lt.changeInfo(lst, k, elemj)
+                j += 1
+            else: # caso elemi <= elemj
+                lt.changeInfo(lst, k, elemi)
+                i += 1
+                k += 1
+        while i <= leftelements:
+            lt.changeInfo(lst, k, lt.getElement(leftlist, i))
+            i += 1
+            k += 1
+        while j <= rightelements:
+            lt.changeInfo(lst, k, lt.getElement(rightlist, j))  
+            j += 1
+            k += 1
+    return lst
+
 
 def sort_artists(catalog, size, sort_method):
     sublist = sublista(catalog, size)
@@ -250,7 +289,9 @@ def add_element(artistas, element):
         #after you found the position the element will be in, add it to that position
         lt.insertElement(artistas, element, pos)
 
-
+def mergeSort(obras):
+    
+    return obras
 
 # implementing timsort 
 # this implementation was done by following the video series of Gaurav Sen on Tim sort

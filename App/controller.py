@@ -77,8 +77,7 @@ def loadArtworks(catalog):
 def listaCronologicaArtistas(catalogo, year1, year2):
     return model.listaCronologicaArtistas(catalogo, year1, year2)
 
-def listaobras(catalogo, date1, date2):
-    return model.listaobras(catalogo,date1,date2)
+
 
 def get_nationalities(catalog):
     return model.get_nationalities(catalog)
@@ -88,9 +87,13 @@ def get_nationalities(catalog):
 def sort_artists(atrisits, size, sort_method):
     model.sort_artists(atrisits, size, sort_method)
 
+def OrdenFecha(lst):
+    model.mergeSort(lst)
 
 # Funciones de consulta sobre el catálogo
 def ArtistaEncontrado(catalogo, nombreartista):
     return model.EncontrarArtista(catalogo, nombreartista)
 def IDencontrado(catalogo, id):
     return model.EncontrarID(catalogo, id)
+def FechasObras(catalogo,año1,mes1,dia1,año2,mes2,dia2):
+    return model.AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2)

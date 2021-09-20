@@ -128,16 +128,23 @@ if __name__ == "__main__":
             year2 = int(input('Año final:'))
             print(listaCronologicaArtistas(year1, year2))
         elif int(inputs[0]) == 2:
+            año1 = int(input("Gregue el año de la fecha 1: "))
+            mes1 = int(input("Gregue el año de la fecha 1: "))
+            dia1 = int(input("Gregue el año de la fecha 1: "))
+            año2 = int(input("Gregue el año de la fecha 2: "))
+            mes2 = int(input("Gregue el año de la fecha 2: "))
+            dia2 = int(input("Gregue el año de la fecha 2: "))
+             
             
-            date1 = (input("fecha inicial: "))
-            date2 = (input("fecha final: "))
-            print(controller.listaobras(date1,date2))
+            print(controller.OrdenFecha(controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2)))
             pass
+
+        
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
             print("El ID del artista es")
             print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
-            print(controller.IDencontrado(catalog[ARTWORKS], controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
+            print(controller.IDencontrado( controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
             
             pass
         elif int(inputs[0]) == 4:
