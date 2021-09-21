@@ -28,8 +28,8 @@ import csv
 #constantes
 #--------------------------
 #file names
-ARTISTS_FILE = 'MoMa/Artists-utf8-large.csv'
-ARTWORKS_FILE = 'MoMa/Artworks-utf8-large.csv'
+ARTISTS_FILE = 'MoMa/Artists-utf8-small.csv'
+ARTWORKS_FILE = 'MoMa/Artworks-utf8-small.csv'
 
 #Dicionario
 ARTISTAS = 'Artistas'
@@ -81,8 +81,11 @@ def listaCronologicaArtistas(catalogo, year1, year2):
     return model.listaCronologicaArtistas(catalogo, year1, year2)
 
 
+<<<<<<< HEAD
 def listaobras(catalogo, date1, date2):
     return model.listaobras(catalogo,date1,date2)
+=======
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 
 
 def get_nationalities(catalog):
@@ -92,16 +95,25 @@ def get_nationalities(catalog):
 # Funciones de ordenamiento
 def sort_artists(atrisits, size, sort_method):
     return model.sort_artists(atrisits, size, sort_method)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 
-# Funciones de consulta sobre el catálogo
 def ArtistaEncontrado(catalogo, nombreartista):
     return model.EncontrarArtista(catalogo, nombreartista)
 
 
 def IDencontrado(catalogo, id):
     return model.EncontrarID(catalogo, id)
+<<<<<<< HEAD
 
 
 def get_artist(list, id):
     return model.bin_search_ConstituentID(list, id)
+=======
+def FechasObras(catalogo,año1,mes1,dia1,año2,mes2,dia2):
+    return model.AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2)
+def ObrasDepa(catalogo,Depa):
+    return model.InfoDepa(catalogo,Depa)
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306

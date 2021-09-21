@@ -25,6 +25,8 @@
  """
 
 
+from App.controller import ObrasDepa
+from DISClib.DataStructures.arraylist import size
 from DISClib.DataStructures.listnode import newSingleNode
 import time
 import config as cf
@@ -33,7 +35,8 @@ from DISClib.Algorithms.Sorting import shellsort as ss
 from DISClib.Algorithms.Sorting import insertionsort as ins
 from DISClib.Algorithms.Sorting import mergesort as ms
 from DISClib.Algorithms.Sorting import quicksort as qs
-from datetime import date
+import datetime
+from statistics import mode 
 assert cf
 
 """
@@ -66,6 +69,7 @@ def addArtist(catalog, artista):
     
 
 def addArtwork(catalog, artwork):
+    #-------------------------------
     lt.addLast(catalog[ARTWORKS], artwork)
     
 
@@ -80,6 +84,7 @@ def listaCronologicaArtistas(catalogo, year1, year2):
             add_element(artistas, element)
     return artistas
 
+<<<<<<< HEAD
 
 def listaobras(catalogo, date1, date2):
     
@@ -92,6 +97,12 @@ def listaobras(catalogo, date1, date2):
             lt.add_element(obras, element)
     return obras
 
+=======
+ 
+def get_nationalities(catalog):
+    # First we need to sort the catalog in artist to get the ConstituentID
+    insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 
 
 # Funciones para creacion de datos
@@ -102,8 +113,8 @@ def listaobras(catalogo, date1, date2):
 
 # Funciones de consulta
 def EncontrarArtista(catalogo, nombreartista):
-    
-    for i in range(0, lt.size(catalogo) - 1):
+    print(nombreartista)
+    for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
         if element['DisplayName'] == str(nombreartista):
             id = element['ConstituentID']
@@ -112,17 +123,36 @@ def EncontrarArtista(catalogo, nombreartista):
 
 
 # Funciones utilizadas para comparar elementos dentro de una lista
+
 def EncontrarID(catalogo,id):
-    ida = ''
-    for a in range(0, lt.size(catalogo) - 1):
+    obras = lt.newList(datastructure='ARRAY_LIST')
+    medios = lt.newList(datastructure='ARRAY_LIST')
+    for a in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, a)
-        #obras = lt.newList(datastructure='ARRAY_LIST')
+        
         if str(id) in str(element['ConstituentID']):
+            # Se guarda en un diccionario donde la llave es 'elements' y el valor es una lista de tecnicas
+            lt.addLast(medios,element['Medium'])
+            # Lista de diccionarios de cada obra con datos pedidos
             dicc={}
             dicc['Title']= element['Title']
             dicc['DateAcquired']= element['DateAcquired']
-            dicc['Medium']= element['Medium']
             dicc['Dimensions']= element['Dimensions']
+            dicc['Medium']= element['Medium']
+            lt.addLast(obras, dicc)
+            #La lista obras contiene todos los trabajos del artista
+    mas_usada = mode(medios['elements'])
+
+    #insertaremos a una lista los datos pedidos segun metodo mas usado y el autor
+    usada = lt.newList(datastructure='ARRAY_LIST')
+    for a in range(1, lt.size(obras) + 1):
+        element = lt.getElement(obras, a)
+        if str(mas_usada) in str(element['Medium']):
+            dicc={}
+            dicc['Title']= element['Title']
+            dicc['DateAcquired']= element['DateAcquired']
+            dicc['Dimensions']= element['Dimensions']
+<<<<<<< HEAD
             #lt.addLast(obras, dicc)
             print(dicc)
 
@@ -156,17 +186,106 @@ def bin_search_ConstituentID(lista,id):
 
     return element
 
+=======
+            dicc['Medium']= mas_usada
+            lt.addLast(usada, dicc)
+
+    print("El total de obras del autor son: ", lt.size(obras))
+    print('------------------------------------')
+    print("La tecnica mas usada es", mas_usada)
+    print('------------------------------------')
+    print("la lista de la tecnica mas usada es: ")
+    return usada
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 #-----------------------------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
+def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
+    FechaFinal = datetime.date(año2,mes2,dia2)
+    FechaInicial = datetime.date(año1,mes1,dia1)
+    #Se trasformaron los datos en formato de fecha para poder comparar
+    obras= lt.newList(datastructure='ARRAY_LIST')
+    purchase=lt.newList(datastructure='ARRAY_LIST')
+    for a in range(1, lt.size(catalogo) + 1):
+        fecha = None
+        element = lt.getElement(catalogo, a)
+        if  element['DateAcquired'] != None and element['DateAcquired'] != '' :
+            fecha= element['DateAcquired'].split('-')
+            fecha2 = datetime.date(int(fecha[0]),int(fecha[1]), int(fecha[2]))
+
+            if fecha2 < FechaFinal and fecha2 > FechaInicial:
+                dicc={}
+                dicc['Title']= element['Title']
+                dicc['DateAcquired']= fecha2
+                dicc['CreditLine']= element['CreditLine']
+                lt.addLast(obras,dicc)
+                if 'Purchase' in element['CreditLine'] :
+                    lt.addLast(purchase,['Title'])
+    print("Las fechas escritas fueron: " ,FechaInicial, "y ", FechaFinal)
+    print('Los trabajos encontrados fueron ', lt.size(obras))
+    print('La cantiddad de obras en purchase son ' , lt.size(purchase) )
+    
+    return obras
+#-----------------------------------------------------------------------------------
+# Funciones utilizadas para comparar elementos dentro de una lista
+def InfoDepa(catalogo,Depa):
+    Obras= lt.newList(cmpfunction="ARRAY_LIST")
+    for a in range(1, lt.size(catalogo) + 1):
+        element = lt.getElement(catalogo, a)
+        if Depa in element['Department'] :
+            Largo = 0
+            Ancho = 0
+            Alto = 0
+            Peso = 0
+            countLongitud=0
+            countPeso=0 
+            Costos= 0
+            if element['Width (cm)']!= None and element['Width (cm)']!="":
+                Ancho = (float(element['Width (cm)']))/100
+            else:
+                Ancho = 0
+            if element['Height (cm)']!= None and element['Height (cm)']!="":
+                Alto = (float(element['Height (cm)']))/100
+            else:
+                    Alto = 1
+            if element['Length (cm)']!= None and element['Length (cm)']!= "":
+                        Largo = (float(element['Length (cm)']))/100
+            else:
+                Largo=1
+            countLongitud= 72*(Alto * Ancho * Largo)
+            if element['Weight (kg)'] != None and element['Weight (kg)'] != "":
+                Peso= float(element['Weight (kg)'])
+            else: 
+                Peso= 0
+            countPeso= 72*(Peso)
+
+            if countPeso > countLongitud:
+                Costos=countPeso
+            else: 
+                Costos=countLongitud
+            dicc={}               
+            dicc['Title']= element['Title']
+            dicc['Artistas']= element['ConstituentID']
+            dicc['Classification']= element['Classification']
+            dicc['DateAcquired']=element['DateAcquired']
+            dicc['Medio']= element['Medium']
+            dicc['Dimensions']= element['Dimensions']
+            dicc['Costo']= Costos
+            lt.addLast(Obras,dicc)                                                                
+    return Obras
 
 # Compares the artworks by date aquired
 def cmp_artwork_date_acquired(aw1, aw2):
     #asume they are equal
     result = 0
+<<<<<<< HEAD
 
     date1 = aw1['DateAcquired'].replace("-", "")
     date2 = aw2['DateAcquired'].replace("-", "")
 
+=======
+    date1 = int(aw1['DateAcquired'].replace("-", ""))
+    date2 = int(aw2['DateAcquired'].replace("-", ""))
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306
     #check if they are actualy not equal an do the needed change
     if date1 < date2:
         result = -1
@@ -177,6 +296,7 @@ def cmp_artwork_date_acquired(aw1, aw2):
 
 
 
+<<<<<<< HEAD
 def cmp_constituentID(art1, art2):
     result = 0
     if art1['ConstituentID'] < art2['ConstituentID']:
@@ -185,6 +305,8 @@ def cmp_constituentID(art1, art2):
         result = 1
     return result
 
+=======
+>>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
@@ -253,7 +375,9 @@ def add_element(artistas, element):
         #after you found the position the element will be in, add it to that position
         lt.insertElement(artistas, element, pos)
 
-
+def mergeSort(obras):
+    ms.sort(obras, cmp_artwork_date_acquired)
+    return obras
 
 def get_nationalities(catalog):
     # First we need to sort the catalog in artist to get the ConstituentID

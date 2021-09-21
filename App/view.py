@@ -21,11 +21,13 @@
  """
 
 
+
 from io import DEFAULT_BUFFER_SIZE
 import config as cf
 import sys
 import controller
 from DISClib.ADT import list as lt
+#import pandas as pd
 assert cf
 
 #Dicionario
@@ -105,11 +107,8 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs[0]) == 0:
             print("Como quieres guardar los datos? ")
-            struture_type = int(input("Pon 1 para ArrayList, 2 para LinkedList"))
-            if struture_type == 2:
-                struture_type = 'SINGLE_LINKED'
-            else:
-                struture_type = 'ARRAY_LIST'
+            
+            struture_type = 'ARRAY_LIST'
             print("Cargando información de los archivos ....")
             
             catalog = loadCatalog(struture_type)
@@ -119,7 +118,6 @@ if __name__ == "__main__":
                 print('Artistas cargados:' + str(lt.size(catalog[ARTISTAS])))
                 print("artworks cargados: " + str(lt.size(catalog[ARTWORKS])))
                 
-                print(catalog[ARTWORKS]['type'])
             else:
                 print("algo salio mal")
 
@@ -128,6 +126,13 @@ if __name__ == "__main__":
             year2 = int(input('Año final:'))
             print(listaCronologicaArtistas(year1, year2))
         elif int(inputs[0]) == 2:
+            año1 = int(input("Gregue el año de la fecha 1: "))
+            mes1 = int(input("Gregue el año de la fecha 1: "))
+            dia1 = int(input("Gregue el año de la fecha 1: "))
+            año2 = int(input("Gregue el año de la fecha 2: "))
+            mes2 = int(input("Gregue el año de la fecha 2: "))
+            dia2 = int(input("Gregue el año de la fecha 2: "))
+            print(controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2))
             
             date1 = (input("fecha inicial: "))
             date2 = (input("fecha final: "))
@@ -135,8 +140,9 @@ if __name__ == "__main__":
             
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
-            #print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
-            print(controller.IDencontrado(catalog[ARTWORKS], controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
+            print("El ID del artista es")
+            print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
+            print(controller.IDencontrado( controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
             
         elif int(inputs[0]) == 4:
             nacionalities = get_nationalities()
@@ -177,13 +183,15 @@ if __name__ == "__main__":
 
             
         elif int(inputs[0]) == 5:
+            Depa=str(input('Dijite el departamento por favor: '))
+            print(controller.ObrasDepa(catalog[ARTWORKS],Depa))
             pass
         elif int(inputs[0]) == 6:
             pass
         elif int(inputs[0]) == 7:
             size = int(input("what is the size of the sort?"))
             print("What sorting method do you want?")
-            sort_method = input("1: incertion, 2: shell, 3: quick, 4: merge")
+            sort_method = int(input("1: incertion, 2: shell, 3: quick, 4: merge: "))
 
             result = controller.sort_artists(catalog[ARTWORKS], size, int(sort_method[0]))
             print("la muestra de " + str(size) + " elementos se demoro: " + str(result) + "ms.")
