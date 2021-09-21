@@ -85,15 +85,13 @@ def get_nationalities(catalog):
     
 # Funciones de ordenamiento
 def sort_artists(atrisits, size, sort_method):
-    model.sort_artists(atrisits, size, sort_method)
+    return model.sort_artists(atrisits, size, sort_method)
 
-def OrdenFecha(lst):
-    model.mergeSort(lst)
-
-# Funciones de consulta sobre el catálogo
 def ArtistaEncontrado(catalogo, nombreartista):
     return model.EncontrarArtista(catalogo, nombreartista)
 def IDencontrado(catalogo, id):
     return model.EncontrarID(catalogo, id)
 def FechasObras(catalogo,año1,mes1,dia1,año2,mes2,dia2):
     return model.AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2)
+def ObrasDepa(catalogo,Depa):
+    return model.InfoDepa(catalogo,Depa)

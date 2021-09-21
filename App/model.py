@@ -25,6 +25,8 @@
  """
 
 
+from App.controller import ObrasDepa
+from DISClib.DataStructures.arraylist import size
 from DISClib.DataStructures.listnode import newSingleNode
 import time
 import config as cf
@@ -154,24 +156,80 @@ def EncontrarID(catalogo,id):
 def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
     FechaFinal = datetime.date(año2,mes2,dia2)
     FechaInicial = datetime.date(año1,mes1,dia1)
-    #Se trasformo los datos en formato de fecha para poder comparar
+    #Se trasformaron los datos en formato de fecha para poder comparar
     obras= lt.newList(datastructure='ARRAY_LIST')
+    purchase=lt.newList(datastructure='ARRAY_LIST')
     for a in range(1, lt.size(catalogo) + 1):
         fecha = None
         element = lt.getElement(catalogo, a)
         if  element['DateAcquired'] != None and element['DateAcquired'] != '' :
             fecha= element['DateAcquired'].split('-')
             fecha2 = datetime.date(int(fecha[0]),int(fecha[1]), int(fecha[2]))
+
             if fecha2 < FechaFinal and fecha2 > FechaInicial:
                 dicc={}
                 dicc['Title']= element['Title']
                 dicc['DateAcquired']= fecha2
                 dicc['CreditLine']= element['CreditLine']
-
                 lt.addLast(obras,dicc)
-    
+                if 'Purchase' in element['CreditLine'] :
+                    lt.addLast(purchase,['Title'])
+    print("Las fechas escritas fueron: " ,FechaInicial, "y ", FechaFinal)
+    print('Los trabajos encontrados fueron ', lt.size(obras))
+    print('La cantiddad de obras en purchase son ' , lt.size(purchase) )
     
     return obras
+#-----------------------------------------------------------------------------------
+# Funciones utilizadas para comparar elementos dentro de una lista
+def InfoDepa(catalogo,Depa):
+    Obras= lt.newList(cmpfunction="ARRAY_LIST")
+    for a in range(1, lt.size(catalogo) + 1):
+        element = lt.getElement(catalogo, a)
+        if Depa in element['Department'] :
+            Largo = 0
+            Ancho = 0
+            Alto = 0
+            Peso = 0
+            countLongitud=0
+            countPeso=0 
+            Costos= 0
+            if element['Width (cm)']!= None and element['Width (cm)']!="":
+                Ancho = (float(element['Width (cm)']))/100
+            else:
+                Ancho = 0
+            if element['Height (cm)']!= None and element['Height (cm)']!="":
+                Alto = (float(element['Height (cm)']))/100
+            else:
+                    Alto = 1
+            if element['Length (cm)']!= None and element['Length (cm)']!= "":
+                        Largo = (float(element['Length (cm)']))/100
+            else:
+                Largo=1
+            print(Ancho)
+            print(Alto)
+            print(Largo)
+            print('---------------------')
+            countLongitud= 72*(Alto * Ancho * Largo)
+            if element['Weight (kg)'] != None and element['Weight (kg)'] != "":
+                Peso= float(element['Weight (kg)'])
+            else: 
+                Peso= 0
+            countPeso= 72*(Peso)
+
+            if countPeso > countLongitud:
+                Costos=countPeso
+            else: 
+                Costos=countLongitud
+            dicc={}               
+            dicc['Title']= element['Title']
+            dicc['Artistas']= element['ConstituentID']
+            dicc['Classification']= element['Classification']
+            dicc['DateAcquired']=element['DateAcquired']
+            dicc['Medio']= element['Medium']
+            dicc['Dimensions']= element['Dimensions']
+            dicc['Costo']= Costos
+            lt.addLast(Obras,dicc)                                                                
+    return None
 
 # Compares the artworks by date aquired
 def cmp_artwork_date_acquired(aw1, aw2):
@@ -187,42 +245,10 @@ def cmp_artwork_date_acquired(aw1, aw2):
     
     return result
 
+
+
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
-def mergeSort(lst,lessfunction):
-    print(lst)
-    print('qwqwqwq')
-    size = lt.size(lst)
-    if size > 1:
-        mid = (size // 2)
-        leftlist = lt.subList(lst, 1, mid)
-        rightlist = lt.subList(lst, mid+1, size - mid)
-        ms(leftlist, lessfunction)
-        ms(rightlist, lessfunction)
-        i = j = k = 1
-        leftelements = lt.size(leftlist)
-        rightelements = lt.size(rightlist)
-        while (i <= leftelements) and (j <= rightelements):
-            elemi = lt.getElement(leftlist, i)
-            elemj = lt.getElement(rightlist, j)
-            print(elemi)
-            if lessfunction(elemj["DateAcquired"], elemi["DateAcquired"]): # caso estricto elemj < elemi
-                lt.changeInfo(lst, k, elemj)
-                j += 1
-            else: # caso elemi <= elemj
-                lt.changeInfo(lst, k, elemi)
-                i += 1
-                k += 1
-        while i <= leftelements:
-            lt.changeInfo(lst, k, lt.getElement(leftlist, i))
-            i += 1
-            k += 1
-        while j <= rightelements:
-            lt.changeInfo(lst, k, lt.getElement(rightlist, j))  
-            j += 1
-            k += 1
-    return lst
-
 
 def sort_artists(catalog, size, sort_method):
     sublist = sublista(catalog, size)
@@ -290,7 +316,7 @@ def add_element(artistas, element):
         lt.insertElement(artistas, element, pos)
 
 def mergeSort(obras):
-    
+    ms.sort(obras, cmp_artwork_date_acquired)
     return obras
 
 # implementing timsort 

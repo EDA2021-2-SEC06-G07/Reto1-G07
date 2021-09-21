@@ -21,6 +21,7 @@
  """
 
 
+
 from io import DEFAULT_BUFFER_SIZE
 import config as cf
 import sys
@@ -134,12 +135,12 @@ if __name__ == "__main__":
             año2 = int(input("Gregue el año de la fecha 2: "))
             mes2 = int(input("Gregue el año de la fecha 2: "))
             dia2 = int(input("Gregue el año de la fecha 2: "))
-             
+            print(controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2))
             
-            print(controller.OrdenFecha(controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2)))
+    
             pass
 
-        
+
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
             print("El ID del artista es")
@@ -152,6 +153,8 @@ if __name__ == "__main__":
             print('nacionalidades:')
             
         elif int(inputs[0]) == 5:
+            Depa=str(input('Dijite el departamento por favor: '))
+            print(controller.ObrasDepa(catalog[ARTWORKS],Depa))
             pass
         elif int(inputs[0]) == 6:
             pass
