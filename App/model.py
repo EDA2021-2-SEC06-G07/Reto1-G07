@@ -84,7 +84,6 @@ def listaCronologicaArtistas(catalogo, year1, year2):
             add_element(artistas, element)
     return artistas
 
-<<<<<<< HEAD
 
 def listaobras(catalogo, date1, date2):
     
@@ -97,12 +96,10 @@ def listaobras(catalogo, date1, date2):
             lt.add_element(obras, element)
     return obras
 
-=======
  
 def get_nationalities(catalog):
     # First we need to sort the catalog in artist to get the ConstituentID
     insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
->>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 
 
 # Funciones para creacion de datos
@@ -152,11 +149,16 @@ def EncontrarID(catalogo,id):
             dicc['Title']= element['Title']
             dicc['DateAcquired']= element['DateAcquired']
             dicc['Dimensions']= element['Dimensions']
-<<<<<<< HEAD
             #lt.addLast(obras, dicc)
-            print(dicc)
+            dicc['Medium']= mas_usada
+            lt.addLast(usada, dicc)
 
-    return None
+    print("El total de obras del autor son: ", lt.size(obras))
+    print('------------------------------------')
+    print("La tecnica mas usada es", mas_usada)
+    print('------------------------------------')
+    print("la lista de la tecnica mas usada es: ")
+    return usada
 
 
 def bin_search_ConstituentID(lista,id):
@@ -186,17 +188,7 @@ def bin_search_ConstituentID(lista,id):
 
     return element
 
-=======
-            dicc['Medium']= mas_usada
-            lt.addLast(usada, dicc)
-
-    print("El total de obras del autor son: ", lt.size(obras))
-    print('------------------------------------')
-    print("La tecnica mas usada es", mas_usada)
-    print('------------------------------------')
-    print("la lista de la tecnica mas usada es: ")
-    return usada
->>>>>>> 8f800303f9936740732844cdecc096ed4f909306
+    
 #-----------------------------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
 def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
@@ -277,15 +269,10 @@ def InfoDepa(catalogo,Depa):
 def cmp_artwork_date_acquired(aw1, aw2):
     #asume they are equal
     result = 0
-<<<<<<< HEAD
 
     date1 = aw1['DateAcquired'].replace("-", "")
     date2 = aw2['DateAcquired'].replace("-", "")
 
-=======
-    date1 = int(aw1['DateAcquired'].replace("-", ""))
-    date2 = int(aw2['DateAcquired'].replace("-", ""))
->>>>>>> 8f800303f9936740732844cdecc096ed4f909306
     #check if they are actualy not equal an do the needed change
     if date1 < date2:
         result = -1
@@ -296,7 +283,6 @@ def cmp_artwork_date_acquired(aw1, aw2):
 
 
 
-<<<<<<< HEAD
 def cmp_constituentID(art1, art2):
     result = 0
     if art1['ConstituentID'] < art2['ConstituentID']:
@@ -305,8 +291,6 @@ def cmp_constituentID(art1, art2):
         result = 1
     return result
 
-=======
->>>>>>> 8f800303f9936740732844cdecc096ed4f909306
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
