@@ -105,7 +105,7 @@ if __name__ == "__main__":
         inputs = input('Seleccione una opción para continuar\n')
         if int(inputs[0]) == 0:
             print("Como quieres guardar los datos? ")
-            struture_type = input("Pon 1 para ArrayList, 2 para LinkedList")
+            struture_type = int(input("Pon 1 para ArrayList, 2 para LinkedList"))
             if struture_type == 2:
                 struture_type = 'SINGLE_LINKED'
             else:
@@ -119,6 +119,7 @@ if __name__ == "__main__":
                 print('Artistas cargados:' + str(lt.size(catalog[ARTISTAS])))
                 print("artworks cargados: " + str(lt.size(catalog[ARTWORKS])))
                 
+                print(catalog[ARTWORKS]['type'])
             else:
                 print("algo salio mal")
 
@@ -131,16 +132,49 @@ if __name__ == "__main__":
             date1 = (input("fecha inicial: "))
             date2 = (input("fecha final: "))
             print(controller.listaobras(date1,date2))
-            pass
+            
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
             #print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
             print(controller.IDencontrado(catalog[ARTWORKS], controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
             
-            pass
         elif int(inputs[0]) == 4:
-            nacionalidades = get_nationalities()
+            nacionalities = get_nationalities()
             print('nacionalidades:')
+            
+            keys = []
+            top_nationalities = []
+
+            for i in range(0, 9):
+                largest_key = None
+                largest = None
+                for key in nacionalities:
+                    if largest == None:
+                        largest = nacionalities[key]
+                        largest_key = key
+                    elif lt.size(nacionalities[key]) > lt.size(largest):
+                        largest = nacionalities[key]
+                        largest_key = key
+                keys.append(largest_key)
+                if largest_key != None:
+                    top_nationalities.append(nacionalities.pop(largest_key))
+
+            if largest_key != None:
+                for i in range(0,9):
+                    st = keys[i] + ": " + str(lt.size(top_nationalities[i])) 
+                    print(st)
+            print("top 10 obras en la nacionalidad " + str(keys[0]))
+
+            for i in range(0, 9):
+                element = lt.getElement(top_nationalities[0], i)
+                st = "Titulo: " + element['Title'] + '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
+                st += "  Fecha: " + element['Date'] + '\n'
+                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Dimenciones: " + element['Dimensions'] + '\n'
+                print(st)
+
+
             
         elif int(inputs[0]) == 5:
             pass
@@ -149,9 +183,9 @@ if __name__ == "__main__":
         elif int(inputs[0]) == 7:
             size = int(input("what is the size of the sort?"))
             print("What sorting method do you want?")
-            sort_method = int(input("1: incertion, 2: shell, 3: quick, 4: merge"))
+            sort_method = input("1: incertion, 2: shell, 3: quick, 4: merge")
 
-            result = controller.sort_artists(catalog, size, sort_method)
-            print("la muestra de " + size + " elementos se demoro: " + result + "ms.")
+            result = controller.sort_artists(catalog[ARTWORKS], size, int(sort_method[0]))
+            print("la muestra de " + str(size) + " elementos se demoro: " + str(result) + "ms.")
         else:
             running = False

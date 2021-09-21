@@ -56,6 +56,7 @@ def newCatalog(struture_type):
 
     catalog[ARTISTAS] = lt.newList(datastructure=struture_type)
     catalog[ARTWORKS] = lt.newList(datastructure=struture_type)
+    print(struture_type)
     return catalog
 
 
@@ -92,24 +93,12 @@ def listaobras(catalogo, date1, date2):
     return obras
 
 
-def get_nationalities(catalog):
-    # First we need to sort the catalog in artist to get the ConstituentID
-    insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
 
-
-# size is the size of the new sublist
-def sublista(list, size):
-    if(size > lt.size(list)):
-        print("size bigger than the amount of data")
-        return list
-    return lt.subList(list, 0, size - 1)
 # Funciones para creacion de datos
 
     
-
-
-    
 # Funciones para creacion de datos
+
 
 # Funciones de consulta
 def EncontrarArtista(catalogo, nombreartista):
@@ -120,6 +109,8 @@ def EncontrarArtista(catalogo, nombreartista):
             id = element['ConstituentID']
             
     return id
+
+
 # Funciones utilizadas para comparar elementos dentro de una lista
 def EncontrarID(catalogo,id):
     ida = ''
@@ -136,6 +127,35 @@ def EncontrarID(catalogo,id):
             print(dicc)
 
     return None
+
+
+def bin_search_ConstituentID(lista,id):
+    element = None
+    id = id.replace('[', '')
+    id = id.replace(']', '')
+
+    if(id.count(",") != 0):
+        id = id.split(", ")[0]
+    
+    high = lt.size(lista) - 1
+    low = 0
+    mid = 0
+
+    while low <= high:
+        
+
+        mid = (high + low) // 2
+        element = lt.getElement(lista, mid)
+        
+        if element['ConstituentID'] < int(id):
+            low = mid + 1
+        elif element['ConstituentID'] > int(id):
+            high = mid - 1
+        else:
+            return element
+
+    return element
+
 #-----------------------------------------------------------------------------------
 # Funciones utilizadas para comparar elementos dentro de una lista
 
@@ -144,8 +164,9 @@ def cmp_artwork_date_acquired(aw1, aw2):
     #asume they are equal
     result = 0
 
-    date1 = int(aw1['DateAcquired'].replace("-", ""))
-    date2 = int(aw2['DateAcquired'].replace("-", ""))
+    date1 = aw1['DateAcquired'].replace("-", "")
+    date2 = aw2['DateAcquired'].replace("-", "")
+
     #check if they are actualy not equal an do the needed change
     if date1 < date2:
         result = -1
@@ -154,11 +175,21 @@ def cmp_artwork_date_acquired(aw1, aw2):
     
     return result
 
+
+
+def cmp_constituentID(art1, art2):
+    result = 0
+    if art1['ConstituentID'] < art2['ConstituentID']:
+        result = -1
+    elif art1['ConstituentID'] > art2['ConstituentID']:
+        result = 1
+    return result
+
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
-def sort_artists(catalog, size, sort_method):
-    sublist = sublista(catalog, size)
+def sort_artists(artists, size, sort_method):
+    sublist = lt.subList(artists, 1, size)
     sublist = sublist.copy()
 
     start_time = time.process_time()
@@ -224,37 +255,28 @@ def add_element(artistas, element):
 
 
 
-# implementing timsort 
-# this implementation was done by following the video series of Gaurav Sen on Tim sort
-# link: https://www.youtube.com/watch?v=emeME__917E&list=PLMCXHnjXnTntLcLmA5SqhMspm7burHi3m
+def get_nationalities(catalog):
+    # First we need to sort the catalog in artist to get the ConstituentID
+    ms.sort(catalog[ARTISTAS], cmp_constituentID)
 
+    #get the nationalities that exist
+    nationalities = {}
+    for i in range(0, lt.size(catalog[ARTWORKS])):
+        current_element = lt.getElement(catalog[ARTWORKS], i)
+        artist = bin_search_ConstituentID(catalog[ARTISTAS], current_element['ConstituentID'])
+        nationality = artist['Nationality']
 
-# as said in part 1 and 2 we need to start by implementing insertion.
-# this is because in the sortin algorithms of order O(n²) this is the fastest with a very low constant
-# insertion sort is the most eficient algotithm in arrays of small sizes. (32 - 64)
+        
+        nationality_was_added = False
+        for key in nationalities:
+            if nationality == key:
+                nationality_was_added = True
+                lt.addLast(nationalities[key], current_element)
+        
+        if not nationality_was_added:
+            nationalities.update({nationality: lt.newList(datastructure="ARRAY_LIST")})
+            lt.addLast(nationalities[nationality], current_element)
 
+    return nationalities
 
-# insertion() orders the elements between start and end
-def insertion(list, start, end, id):
-    #i is the element we are going to insert
-    i = start + 1
-    while i >= end :
-        j = i - 1
-        element = lt.getElement(list, i)
-        while element[id] < (lt.getElement(list, j)[id]):
-            lt.exchange(list, j, j + 1)
-            j -= 1
-        i += 1
-
-
-# more eficient than insertion because it the search por the position is O(logn)
-# but the algorithm itself is still O(n²)
-def binary_insertion(list, start, end, id):
-    i = start + 1
-    while i >= end :
-        j = i - 1
-        element = lt.getElement(list, i)
-        while element[id] < (lt.getElement(list, j)[id]):
-            lt.exchange(list, j, j + 1)
-            j -= 1
-        i += 1
+    

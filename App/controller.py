@@ -51,6 +51,7 @@ def initCatalog(struture_type):
 def loadCatalog():
     pass
 
+
 # Funciones para la carga de datos
 def loadData(catalog):
      loadArtist(catalog)
@@ -74,11 +75,15 @@ def loadArtworks(catalog):
     for artwork in input_file:
         model.addArtwork(catalog, artwork)
 
+
+
 def listaCronologicaArtistas(catalogo, year1, year2):
     return model.listaCronologicaArtistas(catalogo, year1, year2)
 
+
 def listaobras(catalogo, date1, date2):
     return model.listaobras(catalogo,date1,date2)
+
 
 def get_nationalities(catalog):
     return model.get_nationalities(catalog)
@@ -86,11 +91,17 @@ def get_nationalities(catalog):
     
 # Funciones de ordenamiento
 def sort_artists(atrisits, size, sort_method):
-    model.sort_artists(atrisits, size, sort_method)
+    return model.sort_artists(atrisits, size, sort_method)
 
 
 # Funciones de consulta sobre el catálogo
 def ArtistaEncontrado(catalogo, nombreartista):
     return model.EncontrarArtista(catalogo, nombreartista)
+
+
 def IDencontrado(catalogo, id):
     return model.EncontrarID(catalogo, id)
+
+
+def get_artist(list, id):
+    return model.bin_search_ConstituentID(list, id)
