@@ -205,10 +205,6 @@ def InfoDepa(catalogo,Depa):
                         Largo = (float(element['Length (cm)']))/100
             else:
                 Largo=1
-            print(Ancho)
-            print(Alto)
-            print(Largo)
-            print('---------------------')
             countLongitud= 72*(Alto * Ancho * Largo)
             if element['Weight (kg)'] != None and element['Weight (kg)'] != "":
                 Peso= float(element['Weight (kg)'])
@@ -229,7 +225,7 @@ def InfoDepa(catalogo,Depa):
             dicc['Dimensions']= element['Dimensions']
             dicc['Costo']= Costos
             lt.addLast(Obras,dicc)                                                                
-    return None
+    return Obras
 
 # Compares the artworks by date aquired
 def cmp_artwork_date_acquired(aw1, aw2):
