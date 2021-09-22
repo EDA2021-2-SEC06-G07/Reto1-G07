@@ -191,15 +191,15 @@ if __name__ == "__main__":
             costo = 0;
             for i in range(0, size - 1):
                 costo += lt.getElement(obras, i)['Costo']
-            print("Costos totales: " + costo)
+            print("Costos totales: " + str(costo))
             for i in range(0, 4):
                 element = lt.getElement(obras, i)
                 st = "Titulo: " + element['Title'] + '\n'
-                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
-                st += "  Fecha: " + element['Date'] + '\n'
-                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['Artistas'])['DisplayName'] + '\n'
+                st += "  Fecha: " + element['DateAcquired'] + '\n'
+                st += "  Medio: " + element['Medio'] + '\n'
                 st += "  Dimenciones: " + element['Dimensions'] + '\n'
-                st += "  Cost: " + element['Costo'] + '\n'
+                st += "  Cost: " + str(element['Costo']) + '\n'
                 print(st)
 
             obras = controller.sort_cost(obras)
@@ -207,11 +207,11 @@ if __name__ == "__main__":
             for i in range(0, 4):
                 element = lt.getElement(obras, i)
                 st = "Titulo: " + element['Title'] + '\n'
-                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
-                st += "  Fecha: " + element['Date'] + '\n'
-                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['Artistas'])['DisplayName'] + '\n'
+                st += "  Fecha: " + element['DateAcquired'] + '\n'
+                st += "  Medio: " + element['Medio'] + '\n'
                 st += "  Dimenciones: " + element['Dimensions'] + '\n'
-                st += "  Cost: " + element['Costo'] + '\n'
+                st += "  Cost: " + str(element['Costo']) + '\n'
                 print(st)
             
         elif int(inputs[0]) == 6:

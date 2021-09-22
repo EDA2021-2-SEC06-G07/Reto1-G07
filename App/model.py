@@ -305,11 +305,11 @@ def cmp_constituentID(art1, art2):
 
 
 def cmp_costos(obra1, obra2):
-    return obra1['Costos'] - obra2['Costos']
+    return obra1['Costo'] - obra2['Costo']
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
-def sort_costos(obras):
+def sort_cost(obras):
     ms.sort(obras, cmp_costos)
     return obras
 
