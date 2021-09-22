@@ -138,9 +138,9 @@ if __name__ == "__main__":
             
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
-            print("El ID del artista es", controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
-            
-            print(controller.IDencontrado( controller.ArtistaEncontrado( catalog[ARTWORKS], nombreartista)))
+            print("El ID del artista es")
+            print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
+            print(controller.IDencontrado( catalog[ARTWORKS],controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
             
         elif int(inputs[0]) == 4:
             nacionalities = get_nationalities()
