@@ -81,7 +81,9 @@ def listaCronologicaArtistas(catalogo, year1, year2):
         element = lt.getElement(catalogo, i)
         element_date = element['BeginDate']
         if element_date > year1 and element_date < year2:
-            add_element(artistas, element)
+            lt.addLast(artistas, element)
+    
+    ms.sort(artistas, cmp_artist_date)
     return artistas
 
 
@@ -283,6 +285,14 @@ def cmp_artwork_date_acquired(aw1, aw2):
     
     return result
 
+
+def cmp_artist_date(artist1, artist2):
+    result = 0
+    if artist1['BeginDate'] > artist2['BeginDate']:
+        result = 1
+    elif artist1['BeginDate'] < artist2['BeginDate']:
+        result = -1
+    return result
 
 
 def cmp_constituentID(art1, art2):
