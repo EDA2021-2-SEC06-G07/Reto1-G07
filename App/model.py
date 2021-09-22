@@ -81,7 +81,9 @@ def listaCronologicaArtistas(catalogo, year1, year2):
         element = lt.getElement(catalogo, i)
         element_date = element['BeginDate']
         if element_date > year1 and element_date < year2:
-            add_element(artistas, element)
+            lt.addLast(artistas, element)
+    
+    ms.sort(artistas, cmp_artist_date)
     return artistas
 
 
@@ -110,7 +112,6 @@ def get_nationalities(catalog):
 
 # Funciones de consulta
 def EncontrarArtista(catalogo, nombreartista):
-    print(nombreartista)
     for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
         if str(nombreartista) in element['DisplayName']  :
@@ -286,6 +287,14 @@ def cmp_artwork_date_acquired(aw1, aw2):
     return result
 
 
+def cmp_artist_date(artist1, artist2):
+    result = 0
+    if artist1['BeginDate'] > artist2['BeginDate']:
+        result = 1
+    elif artist1['BeginDate'] < artist2['BeginDate']:
+        result = -1
+    return result
+
 
 def cmp_constituentID(art1, art2):
     result = 0
@@ -297,11 +306,11 @@ def cmp_constituentID(art1, art2):
 
 
 def cmp_costos(obra1, obra2):
-    return obra1['Costos'] - obra2['Costos']
+    return obra1['Costo'] - obra2['Costo']
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
 
-def sort_costos(obras):
+def sort_cost(obras):
     ms.sort(obras, cmp_costos)
     return obras
 

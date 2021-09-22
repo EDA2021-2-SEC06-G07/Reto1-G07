@@ -134,15 +134,13 @@ if __name__ == "__main__":
             dia2 = int(input("Gregue el año de la fecha 2: "))
             print(controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2))
             
-            date1 = (input("fecha inicial: "))
-            date2 = (input("fecha final: "))
-            print(controller.listaobras(date1,date2))
+
             
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
-            print("El ID del artista es")
-            print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
-            print(controller.IDencontrado( catalog[ARTWORKS],controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
+            print("El ID del artista es", controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
+            
+            print(controller.IDencontrado( controller.ArtistaEncontrado( catalog[ARTWORKS], nombreartista)))
             
         elif int(inputs[0]) == 4:
             nacionalities = get_nationalities()
@@ -187,19 +185,20 @@ if __name__ == "__main__":
             obras = controller.ObrasDepa(catalog[ARTWORKS],Depa)
 
             size = lt.size(obras)
-            print("Total de obreas: " + str(size))
+            print("Total de obras: " + str(size))
             costo = 0;
+            #Imaginese pensar que esto es C :3
             for i in range(0, size - 1):
                 costo += lt.getElement(obras, i)['Costo']
-            print("Costos totales: " , costo)
+            print("Costos totales: " + str(costo))
             for i in range(0, 4):
                 element = lt.getElement(obras, i)
-                st = "Titulo: " + element['Title'] , '\n'
+                st = "Titulo: " + element['Title'] + '\n'
                 st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['Artistas'])['DisplayName'] + '\n'
-                st += "  Fecha: " + element['Date'] + '\n'
-                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Fecha: " + element['DateAcquired'] + '\n'
+                st += "  Medio: " + element['Medio'] + '\n'
                 st += "  Dimenciones: " + element['Dimensions'] + '\n'
-                st += "  Cost: " + element['Costo'] + '\n'
+                st += "  Cost: " + str(element['Costo']) + '\n'
                 print(st)
 
             obras = controller.sort_cost(obras)
@@ -207,11 +206,11 @@ if __name__ == "__main__":
             for i in range(0, 4):
                 element = lt.getElement(obras, i)
                 st = "Titulo: " + element['Title'] + '\n'
-                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
-                st += "  Fecha: " + element['Date'] + '\n'
-                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['Artistas'])['DisplayName'] + '\n'
+                st += "  Fecha: " + element['DateAcquired'] + '\n'
+                st += "  Medio: " + element['Medio'] + '\n'
                 st += "  Dimenciones: " + element['Dimensions'] + '\n'
-                st += "  Cost: " + element['Costo'] + '\n'
+                st += "  Cost: " + str(element['Costo']) + '\n'
                 print(st)
             
         elif int(inputs[0]) == 6:

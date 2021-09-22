@@ -114,5 +114,5 @@ def ObrasDepa(catalogo,Depa):
     return model.InfoDepa(catalogo,Depa)
 
 
-def sort_costo(obras):
-    return model.sort_costo(obras)
+def sort_cost(obras):
+    return model.sort_cost(obras)
