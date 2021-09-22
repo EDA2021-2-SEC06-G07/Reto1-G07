@@ -184,8 +184,36 @@ if __name__ == "__main__":
             
         elif int(inputs[0]) == 5:
             Depa=str(input('Dijite el departamento por favor: '))
-            print(controller.ObrasDepa(catalog[ARTWORKS],Depa))
-            pass
+            obras = controller.ObrasDepa(catalog[ARTWORKS],Depa)
+
+            size = lt.size(obras)
+            print("Total de obreas: " + str(size))
+            costo = 0;
+            for i in range(0, size - 1):
+                costo += lt.getElement(obras, i)['Costo']
+            print("Costos totales: " + costo)
+            for i in range(0, 4):
+                element = lt.getElement(obras, i)
+                st = "Titulo: " + element['Title'] + '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
+                st += "  Fecha: " + element['Date'] + '\n'
+                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Dimenciones: " + element['Dimensions'] + '\n'
+                st += "  Cost: " + element['Costo'] + '\n'
+                print(st)
+
+            obras = controller.sort_cost(obras)
+
+            for i in range(0, 4):
+                element = lt.getElement(obras, i)
+                st = "Titulo: " + element['Title'] + '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
+                st += "  Fecha: " + element['Date'] + '\n'
+                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Dimenciones: " + element['Dimensions'] + '\n'
+                st += "  Cost: " + element['Costo'] + '\n'
+                print(st)
+            
         elif int(inputs[0]) == 6:
             pass
         elif int(inputs[0]) == 7:

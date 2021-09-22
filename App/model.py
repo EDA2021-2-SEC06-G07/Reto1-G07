@@ -99,7 +99,7 @@ def listaobras(catalogo, date1, date2):
  
 def get_nationalities(catalog):
     # First we need to sort the catalog in artist to get the ConstituentID
-    insertion(catalog[ARTISTAS], 0, lt.size(catalog[ARTISTAS]) - 1, 'ConstituentID')
+    ms.sort(catalog[ARTISTAS], cmp_constituentID)
 
 
 # Funciones para creacion de datos
@@ -234,7 +234,7 @@ def InfoDepa(catalogo,Depa):
             if element['Width (cm)']!= None and element['Width (cm)']!="":
                 Ancho = (float(element['Width (cm)']))/100
             else:
-                Ancho = 0
+                Ancho = 1
             if element['Height (cm)']!= None and element['Height (cm)']!="":
                 Alto = (float(element['Height (cm)']))/100
             else:
@@ -251,9 +251,9 @@ def InfoDepa(catalogo,Depa):
             countPeso= 72*(Peso)
 
             if countPeso > countLongitud:
-                Costos=countPeso
+                costos=countPeso
             else: 
-                Costos=countLongitud
+                costos=countLongitud
             dicc={}               
             dicc['Title']= element['Title']
             dicc['Artistas']= element['ConstituentID']
@@ -261,8 +261,10 @@ def InfoDepa(catalogo,Depa):
             dicc['DateAcquired']=element['DateAcquired']
             dicc['Medio']= element['Medium']
             dicc['Dimensions']= element['Dimensions']
-            dicc['Costo']= Costos
-            lt.addLast(Obras,dicc)                                                                
+            dicc['Costo']= costos
+            lt.addLast(Obras,dicc)
+
+            ms.sort(Obras, cmp_artwork_date_acquired)                                              
     return Obras
 
 # Compares the artworks by date aquired
@@ -291,8 +293,16 @@ def cmp_constituentID(art1, art2):
         result = 1
     return result
 
+
+def cmp_costos(obra1, obra2):
+    return obra1['Costos'] - obra2['Costos']
 #--------------------------------------------------------------------------------------
 # Funciones de ordenamiento
+
+def sort_costos(obras):
+    ms.sort(obras, cmp_costos)
+    return obras
+
 
 def sort_artists(artists, size, sort_method):
     sublist = lt.subList(artists, 1, size)

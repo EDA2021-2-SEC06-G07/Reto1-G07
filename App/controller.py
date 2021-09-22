@@ -109,6 +109,10 @@ def get_artist(list, id):
 def FechasObras(catalogo,año1,mes1,dia1,año2,mes2,dia2):
     return model.AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2)
 
-    
+
 def ObrasDepa(catalogo,Depa):
     return model.InfoDepa(catalogo,Depa)
+
+
+def sort_costo(obras):
+    return model.sort_costo(obras)
