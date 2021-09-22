@@ -112,7 +112,6 @@ def get_nationalities(catalog):
 
 # Funciones de consulta
 def EncontrarArtista(catalogo, nombreartista):
-    print(nombreartista)
     for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
         if element['DisplayName'] == str(nombreartista):
