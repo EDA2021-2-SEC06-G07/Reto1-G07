@@ -113,7 +113,7 @@ def EncontrarArtista(catalogo, nombreartista):
     print(nombreartista)
     for i in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, i)
-        if element['DisplayName'] == str(nombreartista):
+        if str(nombreartista) in element['DisplayName']  :
             id = element['ConstituentID']
             
     return id
@@ -221,6 +221,7 @@ def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
 # Funciones utilizadas para comparar elementos dentro de una lista
 def InfoDepa(catalogo,Depa):
     Obras= lt.newList(cmpfunction="ARRAY_LIST")
+    contador= 0
     for a in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, a)
         if Depa in element['Department'] :
@@ -263,8 +264,9 @@ def InfoDepa(catalogo,Depa):
             dicc['Dimensions']= element['Dimensions']
             dicc['Costo']= costos
             lt.addLast(Obras,dicc)
-
-            ms.sort(Obras, cmp_artwork_date_acquired)                                              
+            contador += costos
+            ms.sort(Obras, cmp_artwork_date_acquired)       
+    print(contador)                                       
     return Obras
 
 # Compares the artworks by date aquired

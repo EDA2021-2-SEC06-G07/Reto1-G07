@@ -142,7 +142,7 @@ if __name__ == "__main__":
             nombreartista = input("Coloque el artista: ")
             print("El ID del artista es")
             print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
-            print(controller.IDencontrado( controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
+            print(controller.IDencontrado( catalog[ARTWORKS],controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
             
         elif int(inputs[0]) == 4:
             nacionalities = get_nationalities()
@@ -191,11 +191,11 @@ if __name__ == "__main__":
             costo = 0;
             for i in range(0, size - 1):
                 costo += lt.getElement(obras, i)['Costo']
-            print("Costos totales: " + costo)
+            print("Costos totales: " , costo)
             for i in range(0, 4):
                 element = lt.getElement(obras, i)
-                st = "Titulo: " + element['Title'] + '\n'
-                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['ConstituentID'])['DisplayName'] + '\n'
+                st = "Titulo: " + element['Title'] , '\n'
+                st += "  Artistas: " + controller.get_artist(catalog[ARTISTAS],element['Artistas'])['DisplayName'] + '\n'
                 st += "  Fecha: " + element['Date'] + '\n'
                 st += "  Medio: " + element['Medium'] + '\n'
                 st += "  Dimenciones: " + element['Dimensions'] + '\n'
