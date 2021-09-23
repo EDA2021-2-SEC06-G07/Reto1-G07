@@ -22,6 +22,7 @@
 
 
 
+
 from io import DEFAULT_BUFFER_SIZE
 import config as cf
 import sys
@@ -126,22 +127,38 @@ if __name__ == "__main__":
             year2 = int(input('Año final:'))
             print(listaCronologicaArtistas(year1, year2))
         elif int(inputs[0]) == 2:
+            print("Si va a escribir una fecha, omita los 0 antes de los numeros ")
             año1 = int(input("Gregue el año de la fecha 1: "))
             mes1 = int(input("Gregue el año de la fecha 1: "))
             dia1 = int(input("Gregue el año de la fecha 1: "))
             año2 = int(input("Gregue el año de la fecha 2: "))
             mes2 = int(input("Gregue el año de la fecha 2: "))
             dia2 = int(input("Gregue el año de la fecha 2: "))
-            print(controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2))
-            
+            Obras= (controller.FechasObras(catalog[ARTWORKS],año1,mes1,dia1,año2,mes2,dia2))
+            size = lt.size(Obras)
+            for i in range(1, size +1):
+                element = lt.getElement(Obras, i)
+                st = "Titulo: " + element['Title'] + '\n'
+                st += "  Fecha: " + str(element['DateAcquired']) + '\n'
+                st += "  ID: " + element['ID'] + '\n'
+                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Dimenciones: " + element['Dimensions'] + '\n'
+                print(st)
 
-            
         elif int(inputs[0]) == 3:
             nombreartista = input("Coloque el artista: ")
             print("El ID del artista es")
             print(controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista))
-            print(controller.IDencontrado( catalog[ARTWORKS],controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
-            
+            Usada= (controller.IDencontrado( catalog[ARTWORKS],controller.ArtistaEncontrado( catalog[ARTISTAS], nombreartista)))
+            size= lt.size(Usada)
+            for i in range(1, size +1):
+                element = lt.getElement(Usada, i)
+                st = "Titulo: " + element['Title'] + '\n'
+                st += "  Fecha: " + str(element['DateAcquired']) + '\n'
+                st += "  Medio: " + element['Medium'] + '\n'
+                st += "  Dimenciones: " + element['Dimensions'] + '\n'
+                print(st)
+
         elif int(inputs[0]) == 4:
             nacionalities = get_nationalities()
             print('nacionalidades:')

@@ -208,12 +208,14 @@ def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
             if fecha2 < FechaFinal and fecha2 > FechaInicial:
                 dicc={}
                 dicc['Title']= element['Title']
+                dicc['ID']= element['ConstituentID']
                 dicc['DateAcquired']= fecha2
-                dicc['CreditLine']= element['CreditLine']
+                dicc['Medium']= element['Medium']
+                dicc['Dimensions']= element['Dimensions']
                 lt.addLast(obras,dicc)
                 if 'Purchase' in element['CreditLine'] :
                     lt.addLast(purchase,['Title'])
-    ms.sort(purchase, cmp_artwork_date)
+    ms.sort(obras, cmp_artwork_date)
     print("Las fechas escritas fueron: " ,FechaInicial, "y ", FechaFinal)
     print('Los trabajos encontrados fueron ', lt.size(obras))
     print('La cantiddad de obras en purchase son ' , lt.size(purchase) )
@@ -223,7 +225,6 @@ def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
 # Funciones utilizadas para comparar elementos dentro de una lista
 def InfoDepa(catalogo,Depa):
     Obras= lt.newList(cmpfunction="ARRAY_LIST")
-    contador= 0
     for a in range(1, lt.size(catalogo) + 1):
         element = lt.getElement(catalogo, a)
         if Depa in element['Department'] :
@@ -266,9 +267,7 @@ def InfoDepa(catalogo,Depa):
             dicc['Dimensions']= element['Dimensions']
             dicc['Costo']= costos
             lt.addLast(Obras,dicc)
-            contador += costos
-            ms.sort(Obras, cmp_artwork_date_acquired)       
-    print(contador)                                       
+            ms.sort(Obras, cmp_artwork_date_acquired)                                           
     return Obras
 
 # Compares the artworks by date aquired
@@ -290,6 +289,7 @@ def cmp_artwork_date_acquired(aw1, aw2):
 
 def cmp_artist_date(artist1, artist2):
     result = 0
+    
     if artist1['BeginDate'] > artist2['BeginDate']:
         result = 1
     elif artist1['BeginDate'] < artist2['BeginDate']:
