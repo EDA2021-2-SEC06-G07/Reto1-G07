@@ -213,6 +213,7 @@ def AgregarFechas(catalogo,año1,mes1,dia1,año2,mes2,dia2):
                 lt.addLast(obras,dicc)
                 if 'Purchase' in element['CreditLine'] :
                     lt.addLast(purchase,['Title'])
+    ms.sort(purchase, cmp_artwork_date)
     print("Las fechas escritas fueron: " ,FechaInicial, "y ", FechaFinal)
     print('Los trabajos encontrados fueron ', lt.size(obras))
     print('La cantiddad de obras en purchase son ' , lt.size(purchase) )
@@ -302,6 +303,15 @@ def cmp_constituentID(art1, art2):
         result = -1
     elif art1['ConstituentID'] > art2['ConstituentID']:
         result = 1
+    return result
+
+
+def cmp_artwork_date(art1, art2):
+    result = 0
+    if art1['DateAcquired'] > art2['DateAcquired']:
+        result = 1
+    elif art1['DateAcquired'] < art2['DateAcquired']:
+        result = -1
     return result
 
 
